@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button'
-import { Flame } from '@phosphor-icons/react'
+import logoImage from '@/assets/images/grief-talk-logo.png'
 
 export function Hero() {
     const scrollToSection = (id: string) => {
@@ -13,14 +13,11 @@ export function Hero() {
         <section id="hero" className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background via-muted/30 to-background pt-16">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
                 <div className="flex justify-center mb-8">
-                    <div className="w-48 h-48 sm:w-64 sm:h-64 bg-primary rounded-full flex items-center justify-center shadow-2xl">
-                        <div className="text-center">
-                            <Flame size={64} weight="fill" className="text-secondary mx-auto mb-2" />
-                            <div className="text-secondary font-serif font-bold text-3xl sm:text-4xl tracking-tight">
-                                GRIEF<br/>TALK
-                            </div>
-                        </div>
-                    </div>
+                    <img 
+                        src={logoImage} 
+                        alt="Grief Talk - Where the Silence Ends and Healing Begins" 
+                        className="w-48 h-48 sm:w-64 sm:h-64 object-contain"
+                    />
                 </div>
 
                 <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-bold text-primary mb-6 leading-tight">

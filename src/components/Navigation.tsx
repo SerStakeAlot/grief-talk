@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button'
 import { List, X } from '@phosphor-icons/react'
 import { useEffect, useState } from 'react'
+import logoImage from '@/assets/images/grief-talk-logo.png'
 
 interface NavigationProps {
     mobileMenuOpen: boolean
@@ -44,9 +45,16 @@ export function Navigation({ mobileMenuOpen, setMobileMenuOpen }: NavigationProp
                     <div className="flex justify-between items-center h-16">
                         <button 
                             onClick={() => scrollToSection('hero')}
-                            className="text-xl font-serif font-bold text-primary hover:text-secondary transition-colors"
+                            className="flex items-center gap-2 hover:opacity-80 transition-opacity"
                         >
-                            Grief Talk
+                            <img 
+                                src={logoImage} 
+                                alt="Grief Talk" 
+                                className="h-10 w-10 object-contain"
+                            />
+                            <span className="text-xl font-serif font-bold text-primary">
+                                Grief Talk
+                            </span>
                         </button>
 
                         <div className="hidden md:flex items-center gap-8">
