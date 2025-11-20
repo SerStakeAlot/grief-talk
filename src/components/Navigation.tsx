@@ -1,7 +1,8 @@
 import { Button } from '@/components/ui/button'
 import { List, X } from '@phosphor-icons/react'
 import { useEffect, useState } from 'react'
-import logoImage from '@/assets/images/grief-talk-logo.png'
+import { Logo } from '@/components/Logo'
+import { NavLink } from 'react-router-dom'
 
 interface NavigationProps {
     mobileMenuOpen: boolean
@@ -19,19 +20,11 @@ export function Navigation({ mobileMenuOpen, setMobileMenuOpen }: NavigationProp
         return () => window.removeEventListener('scroll', handleScroll)
     }, [])
 
-    const scrollToSection = (id: string) => {
-        const element = document.getElementById(id)
-        if (element) {
-            element.scrollIntoView({ behavior: 'smooth' })
-            setMobileMenuOpen(false)
-        }
-    }
-
     const navItems = [
-        { label: 'Home', id: 'hero' },
-        { label: 'About', id: 'about' },
-        { label: 'Books', id: 'books' },
-        { label: 'Contact', id: 'contact' },
+        { label: 'Home', path: '/' },
+        { label: 'About', path: '/about' },
+        { label: 'Books', path: '/books' },
+        { label: 'Contact', path: '/contact' },
     ]
 
     return (
@@ -43,30 +36,27 @@ export function Navigation({ mobileMenuOpen, setMobileMenuOpen }: NavigationProp
             >
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between items-center h-16">
-                        <button 
-                            onClick={() => scrollToSection('hero')}
+                        <NavLink
+                            to="/"
                             className="flex items-center gap-2 hover:opacity-80 transition-opacity"
+                            onClick={() => setMobileMenuOpen(false)}
                         >
-                            <img 
-                                src={logoImage} 
-                                alt="Grief Talk" 
-                                className="h-10 w-10 object-contain"
-                            />
-                            <span className="text-xl font-serif font-bold text-primary">
-                                Grief Talk
-                            </span>
-                        </button>
+                            <Logo showText />
+                        </NavLink>
 
                         <div className="hidden md:flex items-center gap-8">
                             {navItems.map((item) => (
-                                <button
-                                    key={item.id}
-                                    onClick={() => scrollToSection(item.id)}
-                                    className="text-foreground hover:text-secondary transition-colors font-medium relative group"
+                                <NavLink
+                                    key={item.path}
+                                    to={item.path}
+                                    className={({ isActive }) =>
+                                        `text-foreground transition-colors font-medium relative group ${isActive ? 'text-secondary' : 'hover:text-secondary'}`
+                                    }
+                                    onClick={() => setMobileMenuOpen(false)}
                                 >
                                     {item.label}
                                     <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-secondary transition-all group-hover:w-full" />
-                                </button>
+                                </NavLink>
                             ))}
                         </div>
 
@@ -86,13 +76,16 @@ export function Navigation({ mobileMenuOpen, setMobileMenuOpen }: NavigationProp
                 <div className="fixed inset-0 z-40 bg-background md:hidden pt-16">
                     <div className="flex flex-col items-center gap-6 p-8">
                         {navItems.map((item) => (
-                            <button
-                                key={item.id}
-                                onClick={() => scrollToSection(item.id)}
-                                className="text-2xl font-serif text-foreground hover:text-secondary transition-colors"
+                            <NavLink
+                                key={item.path}
+                                to={item.path}
+                                className={({ isActive }) =>
+                                    `text-2xl font-serif transition-colors ${isActive ? 'text-secondary' : 'text-foreground hover:text-secondary'}`
+                                }
+                                onClick={() => setMobileMenuOpen(false)}
                             >
                                 {item.label}
-                            </button>
+                            </NavLink>
                         ))}
                     </div>
                 </div>

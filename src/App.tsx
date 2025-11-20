@@ -1,25 +1,32 @@
 import { useState } from 'react'
-import { Hero } from '@/components/Hero'
 import { Navigation } from '@/components/Navigation'
-import { About } from '@/components/About'
-import { BookStore } from '@/components/BookStore'
-import { Contact } from '@/components/Contact'
 import { Footer } from '@/components/Footer'
 import { Toaster } from '@/components/ui/sonner'
+import { Routes, Route } from 'react-router-dom'
+import { Home } from '@/pages/Home'
+import { AboutPage } from '@/pages/AboutPage'
+import { BooksPage } from '@/pages/BooksPage'
+import { ContactPage } from '@/pages/ContactPage'
+import { NotFound } from '@/pages/NotFound'
 
 function App() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
     return (
-        <div className="min-h-screen bg-background">
+        <div className="min-h-screen bg-background flex flex-col">
             <Navigation 
                 mobileMenuOpen={mobileMenuOpen}
                 setMobileMenuOpen={setMobileMenuOpen}
             />
-            <Hero />
-            <About />
-            <BookStore />
-            <Contact />
+            <div className="flex-grow pt-16">
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/about" element={<AboutPage />} />
+                    <Route path="/books" element={<BooksPage />} />
+                    <Route path="/contact" element={<ContactPage />} />
+                    <Route path="*" element={<NotFound />} />
+                </Routes>
+            </div>
             <Footer />
             <Toaster />
         </div>

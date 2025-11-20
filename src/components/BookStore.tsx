@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Books, ShoppingCart } from '@phosphor-icons/react'
 import { toast } from 'sonner'
+import { Link, useNavigate } from 'react-router-dom'
 
 interface Book {
     id: string
@@ -25,6 +26,8 @@ export function BookStore() {
             toast.info('Purchase link coming soon!')
         }
     }
+
+    const navigate = useNavigate()
 
     return (
         <section id="books" className="py-20 bg-muted/30">
@@ -55,10 +58,7 @@ export function BookStore() {
                             <Button 
                                 variant="outline"
                                 className="border-secondary text-secondary hover:bg-secondary hover:text-secondary-foreground"
-                                onClick={() => {
-                                    const element = document.getElementById('contact')
-                                    element?.scrollIntoView({ behavior: 'smooth' })
-                                }}
+                                onClick={() => navigate('/contact')}
                             >
                                 Get in Touch
                             </Button>

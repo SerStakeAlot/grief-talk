@@ -7,9 +7,12 @@ import createIconImportProxy from "@github/spark/vitePhosphorIconProxyPlugin";
 import { resolve } from 'path'
 
 const projectRoot = process.env.PROJECT_ROOT || import.meta.dirname
+const repoName = 'grief-talk'
+const isPagesBuild = process.env.GITHUB_PAGES === 'true'
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: isPagesBuild ? `/${repoName}/` : '/',
   plugins: [
     react(),
     tailwindcss(),

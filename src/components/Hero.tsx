@@ -1,14 +1,8 @@
 import { Button } from '@/components/ui/button'
-import logoImage from '@/assets/images/grief-talk-logo.png'
+import logoImage from '@/assets/images/gtalk.jpeg'
+import { Link } from 'react-router-dom'
 
 export function Hero() {
-    const scrollToSection = (id: string) => {
-        const element = document.getElementById(id)
-        if (element) {
-            element.scrollIntoView({ behavior: 'smooth' })
-        }
-    }
-
     return (
         <section id="hero" className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background via-muted/30 to-background pt-16">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
@@ -24,26 +18,28 @@ export function Hero() {
                     Where the Silence Ends<br/>and Healing Begins
                 </h1>
 
-                <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto mb-12 leading-relaxed">
-                    Certified Grief Recovery Specialist, Trauma-informed coach, and certified death doula helping communities heal forward, not just move on.
+                <p className="text-lg sm:text-xl md:text-2xl font-serif text-primary/90 max-w-3xl mx-auto mb-12 leading-relaxed">
+                    Certified Grief Recovery Specialist, Trauma-informed coach, and Certified Death Doula helping communities heal forward, not just move on.
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                    <Button 
-                        size="lg"
-                        className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 text-lg"
-                        onClick={() => scrollToSection('about')}
-                    >
-                        Learn More
-                    </Button>
-                    <Button 
-                        size="lg"
-                        variant="outline"
-                        className="border-2 border-secondary text-secondary hover:bg-secondary hover:text-secondary-foreground px-8 py-6 text-lg"
-                        onClick={() => scrollToSection('books')}
-                    >
-                        Shop Books
-                    </Button>
+                    <Link to="/about">
+                        <Button 
+                            size="lg"
+                            className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 text-lg w-full"
+                        >
+                            Learn More
+                        </Button>
+                    </Link>
+                    <Link to="/books">
+                        <Button 
+                            size="lg"
+                            variant="outline"
+                            className="border-2 border-secondary text-secondary hover:bg-secondary hover:text-secondary-foreground px-8 py-6 text-lg w-full"
+                        >
+                            Shop Books
+                        </Button>
+                    </Link>
                 </div>
             </div>
         </section>
