@@ -16,7 +16,7 @@ interface Book {
 }
 
 export function BookStore() {
-    const [books] = useKV<Book[]>('grief-talk-books', [] as Book[])
+    const [books] = useKV<Book[]>('grief-talk-books', [])
 
     const handlePurchase = (book: Book) => {
         if (book.purchaseUrl) {
