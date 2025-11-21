@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button'
 import { Waves, SpeakerHigh, SpeakerSimpleX, CaretDown, CaretUp } from '@phosphor-icons/react'
 import { useIsMobile } from '@/hooks/use-mobile'
 
-const AUDIO_SRC = '/audio/healing-loop.mp3'
+const AUDIO_SRC = `${import.meta.env.BASE_URL}audio/healing-loop.mp3`
 
 export function BackgroundAudio() {
     const audioRef = useRef<HTMLAudioElement | null>(null)
