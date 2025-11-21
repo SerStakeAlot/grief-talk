@@ -1,7 +1,8 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Navigation } from '@/components/Navigation'
 import { Footer } from '@/components/Footer'
 import { Toaster } from '@/components/ui/sonner'
+import { BackgroundAudio } from '@/components/BackgroundAudio'
 import { Routes, Route } from 'react-router-dom'
 import { Home } from '@/pages/Home'
 import { AboutPage } from '@/pages/AboutPage'
@@ -11,6 +12,18 @@ import { NotFound } from '@/pages/NotFound'
 
 function App() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+
+    useEffect(() => {
+        if (mobileMenuOpen) {
+            document.body.style.overflow = 'hidden'
+        } else {
+            document.body.style.overflow = ''
+        }
+
+        return () => {
+            document.body.style.overflow = ''
+        }
+    }, [mobileMenuOpen])
 
     return (
         <div className="min-h-screen bg-background flex flex-col">
@@ -28,6 +41,7 @@ function App() {
                 </Routes>
             </div>
             <Footer />
+            <BackgroundAudio />
             <Toaster />
         </div>
     )

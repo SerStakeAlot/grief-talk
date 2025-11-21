@@ -44,18 +44,18 @@ export function Navigation({ mobileMenuOpen, setMobileMenuOpen }: NavigationProp
                             <Logo showText />
                         </NavLink>
 
-                        <div className="hidden md:flex items-center gap-8">
+                        <div className="hidden md:flex items-center gap-10">
                             {navItems.map((item) => (
                                 <NavLink
                                     key={item.path}
                                     to={item.path}
                                     className={({ isActive }) =>
-                                        `text-foreground transition-colors font-medium relative group ${isActive ? 'text-secondary' : 'hover:text-secondary'}`
+                                        `nav-link relative group ${isActive ? 'text-secondary' : 'text-foreground hover:text-secondary'}`
                                     }
                                     onClick={() => setMobileMenuOpen(false)}
                                 >
                                     {item.label}
-                                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-secondary transition-all group-hover:w-full" />
+                                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-secondary transition-all group-hover:w-full group-focus-visible:w-full" />
                                 </NavLink>
                             ))}
                         </div>
@@ -80,7 +80,7 @@ export function Navigation({ mobileMenuOpen, setMobileMenuOpen }: NavigationProp
                                 key={item.path}
                                 to={item.path}
                                 className={({ isActive }) =>
-                                    `text-2xl font-serif transition-colors ${isActive ? 'text-secondary' : 'text-foreground hover:text-secondary'}`
+                                    `text-2xl nav-link transition-colors ${isActive ? 'text-secondary' : 'text-foreground hover:text-secondary'}`
                                 }
                                 onClick={() => setMobileMenuOpen(false)}
                             >

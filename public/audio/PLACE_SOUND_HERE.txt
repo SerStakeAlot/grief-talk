@@ -1,0 +1,3 @@
+Place your looping background audio file in this folder and name it `healing-loop.mp3`.
+Examples: 432hz-tone.mp3, calming-bed.mp3, etc.
+The BackgroundAudio component will automatically load `/audio/healing-loop.mp3` if it exists.

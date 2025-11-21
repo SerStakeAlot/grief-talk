@@ -6,8 +6,8 @@ export function Footer() {
     return (
         <footer className="bg-primary text-primary-foreground py-12">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="grid md:grid-cols-3 gap-8 mb-8">
-                    <div>
+                <div className="grid md:grid-cols-3 gap-8 mb-8 text-center md:text-left">
+                    <div className="flex flex-col items-center md:items-start">
                         <div className="flex items-center gap-2 mb-4">
                             <Flame size={32} weight="fill" className="text-secondary" />
                             <span className="text-2xl font-serif font-bold">Grief Talk</span>
@@ -17,7 +17,7 @@ export function Footer() {
                         </p>
                     </div>
 
-                    <div>
+                    <div className="flex flex-col items-center md:items-start">
                         <h3 className="font-serif font-semibold text-lg mb-4">Quick Links</h3>
                         <ul className="space-y-2">
                             <li>
@@ -47,7 +47,7 @@ export function Footer() {
                         </ul>
                     </div>
 
-                    <div>
+                    <div className="flex flex-col items-center md:items-start">
                         <h3 className="font-serif font-semibold text-lg mb-4">Services</h3>
                         <ul className="space-y-2 text-primary-foreground/80">
                             <li>Grief Recovery Coaching</li>

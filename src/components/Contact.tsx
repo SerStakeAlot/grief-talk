@@ -4,14 +4,29 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
-import { Envelope, PaperPlaneTilt, Phone, MapPin } from '@phosphor-icons/react'
 import { toast } from 'sonner'
+import { EnvelopeSimple, PaperPlaneTilt, ShareNetwork, LinkedinLogo, FacebookLogo, InstagramLogo, YoutubeLogo, TwitterLogo, SpotifyLogo } from '@phosphor-icons/react'
+const staffContacts = [
+    { label: 'Speaking & Media Inquiries', name: '[Staff Name]', email: 'speaking@grieftalk.com' },
+    { label: 'Podcast & Technical Support', name: '[Staff Name]', email: 'podcast@grieftalk.com' },
+    { label: 'Academy & Course Questions', name: '[Staff Name]', email: 'academy@grieftalk.com' },
+    { label: 'Bookstore & Resources', name: '[Staff Name]', email: 'resources@grieftalk.com' },
+    { label: 'General Questions', name: '[Staff Name]', email: 'info@grieftalk.com' },
+]
+
+const socials = [
+    { label: 'Facebook', icon: FacebookLogo, href: 'https://facebook.com' },
+    { label: 'Instagram', icon: InstagramLogo, href: 'https://instagram.com' },
+    { label: 'YouTube', icon: YoutubeLogo, href: 'https://youtube.com' },
+    { label: 'Twitter (X)', icon: TwitterLogo, href: 'https://twitter.com' },
+    { label: 'Podcast Platforms', icon: SpotifyLogo, href: 'https://spotify.com' },
+    { label: 'LinkedIn', icon: LinkedinLogo, href: 'https://linkedin.com' },
+]
 
 export function Contact() {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
-        subject: '',
         message: ''
     })
     const [isSubmitting, setIsSubmitting] = useState(false)
@@ -21,8 +36,8 @@ export function Contact() {
         setIsSubmitting(true)
 
         setTimeout(() => {
-            toast.success('Thank you for your message! Richard will be in touch soon.')
-            setFormData({ name: '', email: '', subject: '', message: '' })
+            toast.success('Thank you for your message! Our team will be in touch soon.')
+            setFormData({ name: '', email: '', message: '' })
             setIsSubmitting(false)
         }, 1000)
     }
@@ -35,30 +50,29 @@ export function Contact() {
     }
 
     return (
-        <section id="contact" className="py-20 bg-background">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="text-center mb-16">
-                    <div className="inline-flex items-center gap-2 text-secondary mb-4">
-                        <Envelope size={32} weight="duotone" />
+        <section id="contact" className="py-12 sm:py-16 lg:py-24 bg-background">
+            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 sm:space-y-16">
+                <div className="text-center space-y-4">
+                    <div className="inline-flex items-center gap-2 text-secondary mb-2">
+                        <EnvelopeSimple size={32} weight="duotone" />
                     </div>
-                    <h2 className="text-4xl sm:text-5xl font-serif font-bold text-primary mb-4">
+                    <h2 className="text-4xl sm:text-5xl font-serif font-bold text-primary">
                         Get in Touch
                     </h2>
-                    <div className="w-24 h-1 bg-secondary mx-auto mb-6"></div>
-                    <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                        For speaking engagements, coaching inquiries, or to learn more about Grief Talk
+                    <p className="lead text-muted-foreground max-w-3xl mx-auto">
+                        We’d love to hear from you. Whether you have a question, need support, or want to book Richard for an event, here’s how to connect with the GRIEF Talk team.
                     </p>
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <div className="grid md:grid-cols-2 gap-10">
                     <Card className="bg-card border-border">
                         <CardHeader>
                             <CardTitle className="text-2xl font-serif text-primary">
-                                Send a Message
+                                General Contact Form
                             </CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <form onSubmit={handleSubmit} className="space-y-6">
+                            <form onSubmit={handleSubmit} className="space-y-5">
                                 <div className="space-y-2">
                                     <Label htmlFor="name">Name</Label>
                                     <Input
@@ -85,26 +99,14 @@ export function Contact() {
                                 </div>
 
                                 <div className="space-y-2">
-                                    <Label htmlFor="subject">Subject</Label>
-                                    <Input
-                                        id="subject"
-                                        name="subject"
-                                        value={formData.subject}
-                                        onChange={handleChange}
-                                        required
-                                        className="border-input focus:ring-secondary"
-                                    />
-                                </div>
-
-                                <div className="space-y-2">
-                                    <Label htmlFor="message">Message</Label>
+                                    <Label htmlFor="message">How can we help you?</Label>
                                     <Textarea
                                         id="message"
                                         name="message"
                                         value={formData.message}
                                         onChange={handleChange}
                                         required
-                                        rows={5}
+                                        rows={6}
                                         className="border-input focus:ring-secondary resize-none"
                                     />
                                 </div>
@@ -119,7 +121,7 @@ export function Contact() {
                                     ) : (
                                         <>
                                             <PaperPlaneTilt size={20} className="mr-2" />
-                                            Send Message
+                                            Submit
                                         </>
                                     )}
                                 </Button>
@@ -127,87 +129,63 @@ export function Contact() {
                         </CardContent>
                     </Card>
 
-                    <div className="space-y-6">
-                        <Card className="bg-card border-border">
-                            <CardContent className="p-6">
-                                <div className="flex items-start gap-4">
-                                    <div className="w-12 h-12 bg-secondary/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                                        <Envelope size={24} className="text-secondary" />
-                                    </div>
-                                    <div>
-                                        <h3 className="font-serif font-semibold text-primary mb-2">
-                                            Email
-                                        </h3>
-                                        <p className="text-muted-foreground">
-                                            contact@grieftalk.com
-                                        </p>
-                                    </div>
+                    <Card className="bg-card border-border">
+                        <CardHeader>
+                            <CardTitle className="text-2xl font-serif text-primary">
+                                Staff Directory
+                            </CardTitle>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                            {staffContacts.map((staff) => (
+                                <div key={staff.email} className="border-b border-border/60 pb-4 last:border-0 last:pb-0">
+                                    <p className="text-sm uppercase tracking-[0.2em] text-muted-foreground">
+                                        {staff.label}
+                                    </p>
+                                    <p className="text-lg font-serif text-primary">
+                                        {staff.name}
+                                    </p>
+                                    <a href={`mailto:${staff.email}`} className="text-secondary hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
+                                        {staff.email}
+                                    </a>
                                 </div>
-                            </CardContent>
-                        </Card>
+                            ))}
+                        </CardContent>
+                    </Card>
+                </div>
 
-                        <Card className="bg-card border-border">
-                            <CardContent className="p-6">
-                                <div className="flex items-start gap-4">
-                                    <div className="w-12 h-12 bg-secondary/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                                        <Phone size={24} className="text-secondary" />
-                                    </div>
-                                    <div>
-                                        <h3 className="font-serif font-semibold text-primary mb-2">
-                                            Phone
-                                        </h3>
-                                        <p className="text-muted-foreground">
-                                            Available upon request
-                                        </p>
-                                    </div>
-                                </div>
-                            </CardContent>
-                        </Card>
-
-                        <Card className="bg-card border-border">
-                            <CardContent className="p-6">
-                                <div className="flex items-start gap-4">
-                                    <div className="w-12 h-12 bg-secondary/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                                        <MapPin size={24} className="text-secondary" />
-                                    </div>
-                                    <div>
-                                        <h3 className="font-serif font-semibold text-primary mb-2">
-                                            Speaking Engagements
-                                        </h3>
-                                        <p className="text-muted-foreground">
-                                            Available nationwide for conferences, workshops, and community events
-                                        </p>
-                                    </div>
-                                </div>
-                            </CardContent>
-                        </Card>
-
-                        <Card className="bg-gradient-to-br from-secondary/20 to-accent/20 border-secondary/30">
-                            <CardContent className="p-6">
-                                <h3 className="font-serif font-semibold text-primary mb-3 text-lg">
-                                    Topics Available
-                                </h3>
-                                <ul className="space-y-2 text-foreground">
-                                    <li className="flex items-center gap-2">
-                                        <span className="w-1.5 h-1.5 bg-secondary rounded-full"></span>
-                                        Grief & Loss Recovery
-                                    </li>
-                                    <li className="flex items-center gap-2">
-                                        <span className="w-1.5 h-1.5 bg-secondary rounded-full"></span>
-                                        Trauma-Informed Care
-                                    </li>
-                                    <li className="flex items-center gap-2">
-                                        <span className="w-1.5 h-1.5 bg-secondary rounded-full"></span>
-                                        Faith & Healing
-                                    </li>
-                                    <li className="flex items-center gap-2">
-                                        <span className="w-1.5 h-1.5 bg-secondary rounded-full"></span>
-                                        Leadership in Crisis
-                                    </li>
-                                </ul>
-                            </CardContent>
-                        </Card>
+                <div className="space-y-6">
+                    <div className="flex items-center gap-3 text-primary">
+                        <ShareNetwork size={28} />
+                        <h3 className="text-2xl font-serif">Connect with us</h3>
                     </div>
+                    <p className="text-muted-foreground max-w-3xl">
+                        Connect with us and join the conversation:
+                    </p>
+                    <div className="flex flex-wrap gap-4 justify-center sm:justify-start">
+                        {socials.map(({ label, icon: Icon, href }) => (
+                            <a
+                                key={label}
+                                href={href}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                                aria-label={label}
+                            >
+                                <Card className="w-16 h-16 flex items-center justify-center border-border/70 hover:border-secondary transition-colors">
+                                    <Icon size={28} className="text-primary" />
+                                </Card>
+                            </a>
+                        ))}
+                    </div>
+                </div>
+
+                <div className="text-center space-y-4">
+                    <p className="text-xl font-serif text-primary">
+                        “No matter where you are in your journey, you don’t have to walk it alone.”
+                    </p>
+                    <p className="text-muted-foreground">
+                        Reach out — we’re here for you.
+                    </p>
                 </div>
             </div>
         </section>

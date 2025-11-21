@@ -30,9 +30,9 @@ export function BookStore() {
     const navigate = useNavigate()
 
     return (
-        <section id="books" className="py-20 bg-muted/30">
+        <section id="books" className="py-12 sm:py-16 lg:py-24 bg-muted/30">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="text-center mb-16">
+                <div className="text-center mb-12 sm:mb-16">
                     <div className="inline-flex items-center gap-2 text-secondary mb-4">
                         <Books size={32} weight="duotone" />
                     </div>
@@ -65,7 +65,7 @@ export function BookStore() {
                         </CardContent>
                     </Card>
                 ) : (
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div className="grid gap-6 sm:gap-8 sm:grid-cols-2 lg:grid-cols-3">
                         {books.map((book) => (
                             <Card 
                                 key={book.id}
