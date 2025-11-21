@@ -26,6 +26,44 @@
   gap: 0.5rem;
 }
 
+.audio-controller__hide {
+  align-self: flex-end;
+  margin-bottom: -0.25rem;
+  padding: 0.15rem 0.35rem;
+  border: none;
+  background: transparent;
+  color: var(--muted-foreground);
+  font-size: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  cursor: pointer;
+}
+
+.audio-controller__toggle {
+  position: fixed;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 55;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.5rem 1.25rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+  background: color-mix(in srgb, var(--background) 95%, #fff 5%);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+  color: var(--foreground);
+  font-size: 0.85rem;
+}
+
+@media (min-width: 641px) {
+  .audio-controller__toggle {
+    display: none;
+  }
+}
+
 .audio-btn {
   min-width: 0;
   white-space: nowrap;
