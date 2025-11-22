@@ -1,4 +1,5 @@
 import { Flame } from '@phosphor-icons/react'
+import { Link } from 'react-router-dom'
 
 export function Footer() {
     const currentYear = new Date().getFullYear()
@@ -18,31 +19,36 @@ export function Footer() {
                     </div>
 
                     <div className="flex flex-col items-center md:items-start">
-                        <h3 className="font-serif font-semibold text-lg mb-4">Quick Links</h3>
-                        <ul className="space-y-2">
+                        <h3 className="font-serif font-semibold text-lg mb-4 uppercase tracking-[0.2em] text-amber-300">
+                            Quick Links
+                        </h3>
+                        <ul className="space-y-3 text-base">
                             <li>
-                                <button 
-                                    onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
-                                    className="text-primary-foreground/80 hover:text-secondary transition-colors"
+                                <Link
+                                    to="/about"
+                                    className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white text-primary font-semibold shadow-md hover:bg-amber-100 hover:text-primary transition-colors"
                                 >
-                                    About Richard
-                                </button>
+                                    <span className="h-1.5 w-1.5 rounded-full bg-secondary" />
+                                    About
+                                </Link>
                             </li>
                             <li>
-                                <button 
-                                    onClick={() => document.getElementById('books')?.scrollIntoView({ behavior: 'smooth' })}
-                                    className="text-primary-foreground/80 hover:text-secondary transition-colors"
+                                <Link
+                                    to="/books"
+                                    className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white text-primary font-semibold shadow-md hover:bg-amber-100 hover:text-primary transition-colors"
                                 >
+                                    <span className="h-1.5 w-1.5 rounded-full bg-secondary" />
                                     Books
-                                </button>
+                                </Link>
                             </li>
                             <li>
-                                <button 
-                                    onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-                                    className="text-primary-foreground/80 hover:text-secondary transition-colors"
+                                <Link
+                                    to="/contact"
+                                    className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white text-primary font-semibold shadow-md hover:bg-amber-100 hover:text-primary transition-colors"
                                 >
+                                    <span className="h-1.5 w-1.5 rounded-full bg-secondary" />
                                     Contact
-                                </button>
+                                </Link>
                             </li>
                         </ul>
                     </div>

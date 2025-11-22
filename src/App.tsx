@@ -3,6 +3,7 @@ import { Navigation } from '@/components/Navigation'
 import { Footer } from '@/components/Footer'
 import { Toaster } from '@/components/ui/sonner'
 import { BackgroundAudio } from '@/components/BackgroundAudio'
+import { AssessmentDialog } from '@/components/AssessmentDialog'
 import { Routes, Route } from 'react-router-dom'
 import { Home } from '@/pages/Home'
 import { AboutPage } from '@/pages/AboutPage'
@@ -12,6 +13,7 @@ import { NotFound } from '@/pages/NotFound'
 
 function App() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+    const [assessmentOpen, setAssessmentOpen] = useState(false)
 
     useEffect(() => {
         if (mobileMenuOpen) {
@@ -33,7 +35,7 @@ function App() {
             />
             <div className="flex-grow pt-16">
                 <Routes>
-                    <Route path="/" element={<Home />} />
+                    <Route path="/" element={<Home onOpenAssessment={() => setAssessmentOpen(true)} />} />
                     <Route path="/about" element={<AboutPage />} />
                     <Route path="/books" element={<BooksPage />} />
                     <Route path="/contact" element={<ContactPage />} />
@@ -42,6 +44,7 @@ function App() {
             </div>
             <Footer />
             <BackgroundAudio />
+            <AssessmentDialog open={assessmentOpen} onOpenChange={setAssessmentOpen} />
             <Toaster />
         </div>
     )
