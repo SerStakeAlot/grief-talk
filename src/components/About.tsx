@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { User, Certificate, Heart, Microphone, BookOpen, EnvelopeSimple } from '@phosphor-icons/react'
+import richardPortrait from '@/assets/images/IMG_4098.jpg'
 
 export function About() {
     const credentials = [
@@ -41,8 +42,14 @@ export function About() {
                     <div className="space-y-6">
                         <Card className="bg-card border-border shadow-lg">
                             <CardContent className="p-6 sm:p-8 space-y-6">
-                                <div className="w-32 h-32 bg-gradient-to-br from-primary to-primary/80 rounded-full mx-auto mb-2 flex items-center justify-center">
-                                    <User size={64} weight="duotone" className="text-primary-foreground" />
+                                <div className="relative w-full max-w-xs mx-auto mb-4 overflow-hidden rounded-2xl shadow-lg">
+                                    <img
+                                        src={richardPortrait}
+                                        alt="Portrait of Richard Brown"
+                                        className="w-full h-full object-cover"
+                                        loading="lazy"
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" aria-hidden />
                                 </div>
                                 <div className="flex flex-wrap gap-2 justify-center">
                                     {credentials.map((credential) => (

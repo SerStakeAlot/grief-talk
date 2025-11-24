@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button'
 import logoImage from '@/assets/images/gtalk.jpeg'
+import richardPortrait from '@/assets/images/richard-brown.jpg'
 import { Link } from 'react-router-dom'
 
 export function Hero() {
@@ -11,8 +12,14 @@ export function Hero() {
             className="relative overflow-hidden min-h-[calc(100vh-4rem)] flex items-center pt-20 pb-12 sm:pb-16"
         >
             <div className="absolute inset-0">
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_oklch(0.85_0_0)_0%,_oklch(1_0_0)_60%)] opacity-80" />
-                <div className="absolute inset-0 bg-gradient-to-br from-background/95 via-muted/90 to-background" />
+                <img
+                    src={richardPortrait}
+                    alt="Richard Brown"
+                    className="absolute inset-0 w-full h-full object-cover"
+                    loading="lazy"
+                />
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_oklch(0.85_0_0)_0%,_oklch(1_0_0)_60%)] opacity-70" />
+                <div className="absolute inset-0 bg-gradient-to-br from-background/75 via-muted/70 to-background/85" />
             </div>
 
             <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8">
@@ -52,7 +59,7 @@ export function Hero() {
                             <div className="absolute inset-0 blur-3xl bg-primary/10" aria-hidden />
                             <img
                                 src={logoImage}
-                                alt="Grief Talk - Where the Silence Ends and Healing Begins"
+                                alt="GRIEF Talk – Where Silence Ends and Healing Begins"
                                 className="relative w-40 h-40 sm:w-56 sm:h-56 md:w-64 md:h-64 object-contain mix-blend-multiply"
                             />
                         </div>

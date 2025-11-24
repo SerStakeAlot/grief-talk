@@ -11,7 +11,7 @@ export function Footer() {
                     <div className="flex flex-col items-center md:items-start">
                         <div className="flex items-center gap-2 mb-4">
                             <Flame size={32} weight="fill" className="text-secondary" />
-                            <span className="text-2xl font-serif font-bold">Grief Talk</span>
+                            <span className="text-2xl font-serif font-bold">GRIEF Talk</span>
                         </div>
                         <p className="text-primary-foreground/80 leading-relaxed">
                             Where the Silence Ends and Healing Begins
@@ -66,7 +66,7 @@ export function Footer() {
 
                 <div className="border-t border-primary-foreground/20 pt-8 text-center">
                     <p className="text-primary-foreground/80">
-                        © {currentYear} Grief Talk by Richard Brown III. All rights reserved.
+                        © {currentYear} GRIEF Talk by Richard Brown III. All rights reserved.
                     </p>
                 </div>
             </div>
