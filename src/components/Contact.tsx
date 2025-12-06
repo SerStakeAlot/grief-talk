@@ -149,13 +149,7 @@ const whyCollegesChoose = [
     'Immediate crisis response after a campus tragedy',
     'Non-clinical emotional care that is flexible and student-centered'
 ]
-const staffContacts = [
-    { label: 'Speaking & Media Inquiries', name: '[Staff Name]', email: 'speaking@grieftalk.com' },
-    { label: 'Podcast & Technical Support', name: '[Staff Name]', email: 'podcast@grieftalk.com' },
-    { label: 'Academy & Course Questions', name: '[Staff Name]', email: 'academy@grieftalk.com' },
-    { label: 'Bookstore & Resources', name: '[Staff Name]', email: 'resources@grieftalk.com' },
-    { label: 'General Questions', name: '[Staff Name]', email: 'info@grieftalk.com' },
-]
+// Staff directory removed per request
 
 const socials = [
     { label: 'Facebook', icon: FacebookLogo, href: 'https://facebook.com' },
@@ -269,29 +263,6 @@ export function Contact() {
                                     )}
                                 </Button>
                             </form>
-                        </CardContent>
-                    </Card>
-
-                    <Card className="bg-card border-border">
-                        <CardHeader>
-                            <CardTitle className="text-2xl font-serif text-primary">
-                                Staff Directory
-                            </CardTitle>
-                        </CardHeader>
-                        <CardContent className="space-y-4">
-                            {staffContacts.map((staff) => (
-                                <div key={staff.email} className="border-b border-border/60 pb-4 last:border-0 last:pb-0">
-                                    <p className="text-sm uppercase tracking-[0.2em] text-muted-foreground">
-                                        {staff.label}
-                                    </p>
-                                    <p className="text-lg font-serif text-primary">
-                                        {staff.name}
-                                    </p>
-                                    <a href={`mailto:${staff.email}`} className="text-secondary hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
-                                        {staff.email}
-                                    </a>
-                                </div>
-                            ))}
                         </CardContent>
                     </Card>
                 </div>
