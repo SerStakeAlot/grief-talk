@@ -7,12 +7,12 @@ import createIconImportProxy from "@github/spark/vitePhosphorIconProxyPlugin";
 import { resolve } from 'path'
 
 const projectRoot = process.env.PROJECT_ROOT || import.meta.dirname
-const repoName = 'grief-talk'
 const isProd = process.env.NODE_ENV === 'production'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: isProd ? `/${repoName}/` : '/',
+  // Use root base so assets resolve correctly on custom domains and GitHub Pages
+  base: '/',
   plugins: [
     react(),
     tailwindcss(),
