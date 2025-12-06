@@ -13,6 +13,8 @@
   border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
   box-shadow: 0 20px 45px rgba(0, 0, 0, 0.08);
   backdrop-filter: blur(18px);
+  animation: floatPulse 18s ease-in-out infinite;
+  will-change: transform;
 }
 
 .audio-controller__content {
@@ -255,3 +257,62 @@ p + p { margin-top: 1.1em; }
 
 /* Focus ring helper for custom interactive elements */
 .focus-outline { @apply outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background; }
+
+@keyframes softGlow {
+  0% {
+    opacity: 0.65;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.02);
+  }
+  100% {
+    opacity: 0.65;
+    transform: scale(1);
+  }
+}
+
+.bg-hero-veil {
+  animation: softGlow 20s ease-in-out infinite;
+  will-change: opacity, transform;
+}
+
+@keyframes floatPulse {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+[data-animate='fade-up'] {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+[data-animate='fade-up'][data-visible='true'] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bg-hero-veil {
+    animation: none;
+  }
+
+  .audio-controller {
+    animation: none;
+  }
+
+  [data-animate='fade-up'] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}

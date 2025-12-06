@@ -24,6 +24,7 @@ export function Navigation({ mobileMenuOpen, setMobileMenuOpen }: NavigationProp
         { label: 'Home', path: '/' },
         { label: 'About', path: '/about' },
         { label: 'Books', path: '/books' },
+        { label: 'Operational Trauma', path: '/operational-trauma' },
         { label: 'Contact', path: '/contact' },
     ]
 

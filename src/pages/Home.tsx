@@ -29,6 +29,49 @@ const offerings = [
 const podcastUrl = 'https://example.com/podcast'
 const academyUrl = 'https://example.com/academy'
 
+const intakeHighlights = [
+  {
+    title: 'Purpose of the Intake Session',
+    items: [
+      'Understand your story, your needs, and what brought you here.',
+      'Identify the grief, trauma, or transition you are navigating.',
+      'Assess the emotional, spiritual, and practical impact on daily life.',
+      'Determine whether grief coaching, trauma-informed support, or another resource is the best fit.',
+      'Establish clear goals for the next 3–6 months and outline your roadmap.'
+    ]
+  },
+  {
+    title: 'Why the Intake Matters',
+    items: [
+      'You are placed on the right coaching path from day one.',
+      'Support is tailored to your unique situation and pace.',
+      'Coach B and you begin with clarity, alignment, and shared expectations.',
+      'Emotional safety is prioritized before deeper coaching work begins.',
+      'Breakthrough moments happen sooner because of intentional preparation.'
+    ]
+  },
+  {
+    title: 'What Happens During the Intake',
+    items: [
+      'Share the loss, life event, or emotional burden you are carrying.',
+      'Explore how it is affecting your day-to-day experience.',
+      'Identify focus areas for the next several months of coaching.',
+      'Discuss preferred coaching style, accountability, and session rhythm.',
+      'Review the structure of the six-month coaching journey and ask questions.'
+    ]
+  },
+  {
+    title: 'After the Intake Session',
+    items: [
+      'Receive a personalized coaching recommendation and timeline.',
+      'Review a proposed 3–6 month healing and growth plan.',
+      'Confirm suggested session frequency (weekly or biweekly).',
+      'Understand coaching expectations, boundaries, and next steps.',
+      'Lock in the official start date for your recurring sessions.'
+    ]
+  }
+]
+
 interface HomeProps {
   onOpenAssessment?: () => void
 }
@@ -38,7 +81,7 @@ export function Home({ onOpenAssessment }: HomeProps) {
     <div className="space-y-16">
       <Hero />
 
-      <section className="bg-background py-12 sm:py-16 lg:py-20">
+      <section data-animate="fade-up" className="bg-background py-12 sm:py-16 lg:py-20">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 text-center">
           <p className="text-2xl sm:text-3xl font-serif text-primary">
             “You don’t have to heal in silence.”
@@ -55,7 +98,7 @@ export function Home({ onOpenAssessment }: HomeProps) {
         </div>
       </section>
 
-      <section className="py-12 sm:py-16 lg:py-20 bg-background">
+      <section data-animate="fade-up" className="py-12 sm:py-16 lg:py-20 bg-background">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
           <div className="text-center space-y-3">
             <span className="text-secondary uppercase tracking-[0.3em] text-xs">The GRIEF Talk™ Framework</span>
@@ -211,7 +254,112 @@ export function Home({ onOpenAssessment }: HomeProps) {
         </div>
       </section>
 
-      <section className="py-12 sm:py-16 lg:py-20 bg-muted/40">
+      <section data-animate="fade-up" className="py-12 sm:py-16 lg:py-20 bg-background/60">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+          <div className="text-center space-y-4">
+            <span className="text-secondary uppercase tracking-[0.3em] text-xs">Coaching Intake</span>
+            <h2 className="text-3xl sm:text-4xl font-serif text-primary">GRIEF Talk™ Intake Process Overview</h2>
+            <p className="text-base sm:text-lg text-muted-foreground leading-relaxed max-w-4xl mx-auto">
+              Before beginning your 1:1 coaching journey, every client completes a required 45–60 minute Intake Session. This moment is not a coaching session and does not count toward package hours—it is a dedicated space where Coach B listens deeply, ensures emotional safety, and builds a personalized roadmap for your healing.
+            </p>
+          </div>
+
+          <div className="grid gap-6 lg:grid-cols-2">
+            {intakeHighlights.map(({ title, items }) => (
+              <Card key={title} className="bg-card border-border/70 hover:shadow-lg transition-shadow">
+                <CardContent className="p-6 sm:p-7 space-y-4">
+                  <h3 className="text-xl font-serif text-primary">{title}</h3>
+                  <ul className="space-y-3 text-sm sm:text-base text-muted-foreground leading-relaxed">
+                    {items.map((item) => (
+                      <li key={item} className="flex gap-3">
+                        <span className="mt-2 h-2 w-2 rounded-full bg-secondary" aria-hidden />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          <div className="max-w-4xl mx-auto text-center space-y-4">
+            <p className="text-lg sm:text-xl font-serif text-primary">“This is the moment we lay the groundwork—not for perfection, but for progress. Not for quick fixes, but for transformation.”</p>
+            <p className="text-base text-muted-foreground">Your intake sets the tone for a six-month coaching journey rooted in clarity, trust, and sustainable healing.</p>
+            <div className="flex flex-col sm:flex-row justify-center gap-3">
+              <Link to="/contact" className="w-full sm:w-auto">
+                <Button size="lg" className="w-full bg-primary text-primary-foreground hover:bg-primary/90 px-8">
+                  Schedule Your Intake Session
+                </Button>
+              </Link>
+              <Button
+                size="lg"
+                variant="outline"
+                className="w-full sm:w-auto border-secondary text-secondary hover:bg-secondary hover:text-secondary-foreground"
+                onClick={onOpenAssessment}
+              >
+                Explore the GRIEF Talk™ Assessment
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section data-animate="fade-up" className="py-12 sm:py-16 lg:py-20 bg-gradient-to-br from-muted/40 via-background to-muted/30">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid gap-10 md:grid-cols-[1.2fr_1fr] md:items-center">
+          <div className="space-y-5">
+            <span className="text-secondary uppercase tracking-[0.3em] text-xs">Extra GRIEF Care</span>
+            <h2 className="text-3xl sm:text-4xl font-serif text-primary leading-tight">
+              Support for those carrying everyone else’s pain.
+            </h2>
+            <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
+              Operational Trauma™ shows up when helpers, leaders, and healers absorb the weight of another person’s crisis. This new self-assessment helps clergy, caregivers, medical professionals, first responders, educators, and service providers recognize hidden exhaustion before it turns into burnout or collapse.
+            </p>
+            <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
+              Explore extended GRIEF care resources, track your trauma load, and receive language you can use with your teams, congregations, and communities.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3 sm:items-center">
+              <Link to="/operational-trauma" className="w-full sm:w-auto">
+                <Button size="lg" className="w-full bg-secondary text-secondary-foreground hover:bg-secondary/90 px-8">
+                  Operational Trauma™ Assessment
+                </Button>
+              </Link>
+              {onOpenAssessment && (
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="w-full sm:w-auto border-secondary text-secondary hover:bg-secondary hover:text-secondary-foreground"
+                  onClick={onOpenAssessment}
+                >
+                  GRIEF Talk™ Assessment
+                </Button>
+              )}
+            </div>
+          </div>
+
+          <Card className="bg-card border-border/80 shadow-xl">
+            <CardContent className="p-6 sm:p-8 space-y-4">
+              <h3 className="text-xl font-serif text-primary">Inside the Tool</h3>
+              <ul className="space-y-3 text-sm sm:text-base text-muted-foreground leading-relaxed">
+                {[ 
+                  'Five domains measuring emotional, cognitive, behavioral, physical, and relational strain.',
+                  'Forty prompts with a simple 0–3 scale so you can assess progress over time.',
+                  'Instant interpretation with recommendations for pastoral care, coaching, or clinical support.'
+                ].map((item) => (
+                  <li key={item} className="flex items-start gap-2">
+                    <span className="mt-2 block h-2 w-2 rounded-full bg-secondary" aria-hidden />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+              <p className="text-sm text-muted-foreground/80">
+                Use it privately, with a supervisor, or as a reflective tool for your care team meetings.
+              </p>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+
+      <section data-animate="fade-up" className="py-12 sm:py-16 lg:py-20 bg-muted/40">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10 text-center">
           <div className="space-y-3 sm:space-y-4">
             <span className="text-secondary uppercase tracking-[0.3em] text-xs">What We Offer</span>
@@ -234,7 +382,183 @@ export function Home({ onOpenAssessment }: HomeProps) {
         </div>
       </section>
 
-      <section className="py-12 sm:py-16">
+      <section data-animate="fade-up" className="py-16 sm:py-20 lg:py-24 bg-muted/40">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+          <div className="text-center space-y-4">
+            <span className="text-secondary uppercase tracking-[0.3em] text-xs">GRIEF Talk™ Coaching</span>
+            <h2 className="text-3xl sm:text-4xl font-serif text-primary">Our Promise: Where Silence Ends. Healing Begins. Truth Stands Unfiltered.</h2>
+            <p className="text-base sm:text-lg text-muted-foreground leading-relaxed max-w-4xl mx-auto">
+              Each coaching relationship is a sacred trust. We enter fully present, deeply compassionate, and wholly committed to your transformation. These promises are the standards we uphold every time we meet with you.
+            </p>
+          </div>
+
+          <div className="grid gap-6 lg:grid-cols-2">
+            {[
+              {
+                title: '1. We Promise to See You — Not Just Your Symptoms',
+                description: (
+                  <p>
+                    We honor your humanity, your history, and the hidden weight you have carried. There is no minimizing, no judgment, and no assumptions—only presence, empathy, and deep listening.
+                  </p>
+                )
+              },
+              {
+                title: '2. We Promise a Safe Space for Real, Raw, Honest Healing',
+                description: (
+                  <p>
+                    You never have to perform or pretend. Bring tears, questions, or silence. Your story, voice, and emotions remain safe here.
+                  </p>
+                )
+              },
+              {
+                title: '3. We Promise to Be Unfiltered',
+                description: (
+                  <p>
+                    Truth without pretense ignites healing. We speak with clarity, candor, and courage—challenging you lovingly, confronting patterns bravely, and calling you forward boldly.
+                  </p>
+                )
+              },
+              {
+                title: '4. We Promise Trauma-Informed Care',
+                description: (
+                  <p>
+                    We recognize the layers of trauma and grief. Our coaching honors safety, pacing, agency, and empowerment so your nervous system can heal without being overwhelmed.
+                  </p>
+                )
+              },
+              {
+                title: '5. We Promise Faith-Informed Compassion',
+                description: (
+                  <p>
+                    Expect a God-conscious lens that centers dignity, hope, and restoration—not religious pressure, but sacred grounding for your journey.
+                  </p>
+                )
+              },
+              {
+                title: '6. We Promise Confidentiality and Integrity',
+                description: (
+                  <p>
+                    Your story stays with us. Your privacy is protected. Every conversation is held with integrity and respect.
+                  </p>
+                )
+              },
+              {
+                title: '7. We Promise Transformation, Not Just Talk',
+                description: (
+                  <p>
+                    This is deep work. We move with you from pain to clarity, from confusion to direction, from broken pieces to a rebuilt identity.
+                  </p>
+                )
+              },
+              {
+                title: '8. We Promise Partnership, Not Performance',
+                description: (
+                  <p>
+                    We coach with you, not at you. Your pace, your goals, your agency. We guide while you lead your healing.
+                  </p>
+                )
+              },
+              {
+                title: '9. We Promise Accountability That Strengthens, Not Shames',
+                description: (
+                  <p>
+                    Accountability is an act of love. We remind you of your power, hold you to your transformation, and never break you to build you.
+                  </p>
+                )
+              },
+              {
+                title: '10. We Promise to Help You Become Whole — Not Perfect',
+                description: (
+                  <p>
+                    Healing is integration, honesty, and freedom. We walk with you until your grief has a place to rest and your future has room to breathe.
+                  </p>
+                )
+              }
+            ].map(({ title, description }) => (
+              <Card key={title} className="bg-card border-border/80 hover:shadow-lg transition-shadow">
+                <CardContent className="p-6 sm:p-7 space-y-3">
+                  <h3 className="text-lg font-serif text-primary">{title}</h3>
+                  <div className="text-sm sm:text-base text-muted-foreground leading-relaxed">{description}</div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          <div className="text-center space-y-4">
+            <p className="text-lg sm:text-xl font-serif text-primary">“We do not rush your story, dismiss your pain, or dilute your truth. We walk with you—fully present, fully honest, fully committed.”</p>
+            <div className="flex flex-col sm:flex-row justify-center gap-3">
+              <Link to="/contact" className="w-full sm:w-auto">
+                <Button size="lg" className="w-full bg-secondary text-secondary-foreground hover:bg-secondary/90 px-8">
+                  Start Your Coaching Journey
+                </Button>
+              </Link>
+              <Link to="/operational-trauma" className="w-full sm:w-auto">
+                <Button size="lg" variant="outline" className="w-full border-primary text-primary hover:bg-primary hover:text-primary-foreground">
+                  Explore Operational Trauma™ Care
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section data-animate="fade-up" className="py-16 sm:py-20 lg:py-24 bg-gradient-to-b from-background via-muted/20 to-background">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+          <div className="text-center space-y-4">
+            <span className="text-secondary uppercase tracking-[0.3em] text-xs">GRIEF Talk™ Coaching Creed</span>
+            <h2 className="text-3xl sm:text-4xl font-serif text-primary">The Way We Walk With You</h2>
+            <p className="text-base sm:text-lg text-muted-foreground leading-relaxed max-w-3xl mx-auto">
+              Healing requires a space where truth has no filter and compassion has no limits. This creed anchors every session, every conversation, and every courageous step we take together.
+            </p>
+          </div>
+
+          <div className="grid gap-8 md:grid-cols-2">
+            <Card className="bg-card border-border/70 shadow-lg">
+              <CardContent className="p-6 sm:p-8 space-y-4">
+                <h3 className="text-xl font-serif text-primary">Our Daily Commitments</h3>
+                <ul className="space-y-3 text-sm sm:text-base text-muted-foreground leading-relaxed">
+                  {[
+                    'We show up.',
+                    'We stay present.',
+                    'We speak truth.',
+                    'We honor your pace.',
+                    'We protect your story.',
+                    'We champion your healing.',
+                    'We guide you from pain to purpose — one courageous step at a time.'
+                  ].map((item) => (
+                    <li key={item} className="flex gap-3">
+                      <span className="mt-2 h-2 w-2 rounded-full bg-secondary" aria-hidden />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-primary text-primary-foreground border-primary/40 shadow-xl">
+              <CardContent className="p-6 sm:p-8 space-y-5">
+                <h3 className="text-xl font-serif">Real. Raw. Restorative.</h3>
+                <p>
+                  We tell the truth with clarity — not cruelty. We speak the unsaid with care — not chaos. We address the roots, not just the symptoms. In our sessions, you will never be blindsided, silenced, or sugarcoated.
+                </p>
+                <p>
+                  We say the hard things with a soft heart because healing cannot happen where honesty is withheld. We stand with you, sit in the hard spaces with you, and walk with you until you can walk again.
+                </p>
+                <p className="text-sm uppercase tracking-[0.2em] text-secondary-foreground/90">This is the GRIEF Talk™ way.</p>
+              </CardContent>
+            </Card>
+          </div>
+
+          <div className="rounded-3xl border border-border/60 bg-card/80 shadow-lg p-8 sm:p-10 text-center space-y-4">
+            <p className="text-lg sm:text-xl font-serif text-primary">Unfiltered truth. Unconditional compassion. Transformation without apology.</p>
+            <p className="text-base text-muted-foreground max-w-3xl mx-auto">
+              This is our promise. This is our standard. This is the GRIEF Talk™ way.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section data-animate="fade-up" className="py-12 sm:py-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <Card className="bg-card border-border">
             <CardContent className="p-8 space-y-4 text-center">
@@ -247,7 +571,7 @@ export function Home({ onOpenAssessment }: HomeProps) {
         </div>
       </section>
 
-      <section className="py-16 sm:py-20 lg:py-24 bg-gradient-to-b from-background to-muted/30">
+      <section data-animate="fade-up" className="py-16 sm:py-20 lg:py-24 bg-gradient-to-b from-background to-muted/30">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
           <h2 className="text-4xl font-serif text-primary">It’s time to stop carrying grief in silence.</h2>
           <p className="text-lg text-muted-foreground leading-relaxed">
