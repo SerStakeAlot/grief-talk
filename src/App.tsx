@@ -94,7 +94,7 @@ function App() {
                 </Routes>
             </div>
             <Footer />
-            <BackgroundAudio />
+            <BackgroundAudio hidden={welcomeOpen} />
             <AssessmentDialog open={assessmentOpen} onOpenChange={setAssessmentOpen} />
             <WelcomeDialog open={welcomeOpen} onOpenChange={handleWelcomeChange} />
             <Toaster />

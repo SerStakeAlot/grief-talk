@@ -5,7 +5,11 @@ import { useIsMobile } from '@/hooks/use-mobile'
 
 const AUDIO_SRC = `${import.meta.env.BASE_URL}audio/healing-loop.mp3`
 
-export function BackgroundAudio() {
+type BackgroundAudioProps = {
+    hidden?: boolean
+}
+
+export function BackgroundAudio({ hidden = false }: BackgroundAudioProps) {
     const audioRef = useRef<HTMLAudioElement | null>(null)
     const [isPlaying, setIsPlaying] = useState(true)
     const [isMuted, setIsMuted] = useState(false)
@@ -71,11 +75,11 @@ export function BackgroundAudio() {
         setIsMuted(prev => !prev)
     }
 
-    const controllerVisible = !isMobile || !isCollapsed
+    const controllerVisible = !hidden && (!isMobile || !isCollapsed)
 
     return (
         <>
-            {isMobile && isCollapsed && (
+            {!hidden && isMobile && isCollapsed && (
                 <button
                     type="button"
                     className="audio-controller__toggle focus-outline"
