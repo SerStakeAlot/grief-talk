@@ -10,6 +10,12 @@ interface WelcomeDialogProps {
 }
 
 export function WelcomeDialog({ open, onOpenChange }: WelcomeDialogProps) {
+  const openSubscriptionForm = () => {
+    if (typeof window !== 'undefined') {
+      window.open(GOOGLE_FORM_URL, '_blank', 'noreferrer')
+    }
+  }
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-3xl w-full max-h-[90vh] overflow-hidden border-secondary/40 bg-background/95 backdrop-blur-xl">
@@ -64,14 +70,17 @@ export function WelcomeDialog({ open, onOpenChange }: WelcomeDialogProps) {
           </div>
         </ScrollArea>
 
-        <DialogFooter className="sm:flex-row sm:items-center sm:justify-between gap-3">
+        <DialogFooter className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <Button variant="ghost" onClick={() => onOpenChange(false)}>
             Continue exploring
           </Button>
-          <Button asChild size="lg" className="bg-secondary text-secondary-foreground hover:bg-secondary/90">
-            <a href={GOOGLE_FORM_URL} target="_blank" rel="noreferrer">
-              Join the weekly subscription list
-            </a>
+          <Button
+            type="button"
+            size="lg"
+            className="bg-secondary text-secondary-foreground hover:bg-secondary/90"
+            onClick={openSubscriptionForm}
+          >
+            Join the weekly subscription list
           </Button>
         </DialogFooter>
       </DialogContent>
