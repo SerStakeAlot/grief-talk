@@ -61,6 +61,18 @@ export function WelcomeDialog({ open, onOpenChange }: WelcomeDialogProps) {
             <p>
               Make yourself comfortable… and more importantly, join the movement by subscribing to our email list — where you’ll receive updates on upcoming masterclasses, workshops, webinars, and podcast episodes, along with new resources created to support your healing journey.
             </p>
+            <div className="rounded-2xl border border-secondary/40 bg-secondary/5 px-5 py-6 text-center space-y-3">
+              <p className="font-serif text-primary text-lg">Ready to journey with us weekly?</p>
+              <p className="text-sm text-muted-foreground">Tap below to receive every new resource, teaching, and gathering invitation.</p>
+              <Button
+                type="button"
+                size="lg"
+                className="w-full bg-secondary text-secondary-foreground hover:bg-secondary/90"
+                onClick={openSubscriptionForm}
+              >
+                Join the weekly subscription list
+              </Button>
+            </div>
             <div className="space-y-1">
               <p>Welcome to GRIEF Talk — Where the Silence Ends and Healing Begins.</p>
               <p className="font-serif text-primary">Until Every Silence Breaks,</p>
