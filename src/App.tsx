@@ -4,6 +4,7 @@ import { Footer } from '@/components/Footer'
 import { Toaster } from '@/components/ui/sonner'
 import { BackgroundAudio } from '@/components/BackgroundAudio'
 import { AssessmentDialog } from '@/components/AssessmentDialog'
+import { WelcomeDialog } from '@/components/WelcomeDialog'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import { Home } from '@/pages/Home'
 import { AboutPage } from '@/pages/AboutPage'
@@ -12,9 +13,11 @@ import { ContactPage } from '@/pages/ContactPage'
 import { NotFound } from '@/pages/NotFound'
 import { OperationalTraumaPage } from '@/pages/OperationalTraumaPage'
 
+
 function App() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
     const [assessmentOpen, setAssessmentOpen] = useState(false)
+    const [welcomeOpen, setWelcomeOpen] = useState(true)
     const location = useLocation()
 
     useEffect(() => {
@@ -70,6 +73,10 @@ function App() {
         return () => observer.disconnect()
     }, [location.pathname])
 
+    const handleWelcomeChange = (open: boolean) => {
+        setWelcomeOpen(open)
+    }
+
     return (
         <div className="min-h-screen bg-background flex flex-col">
             <Navigation 
@@ -89,6 +96,7 @@ function App() {
             <Footer />
             <BackgroundAudio />
             <AssessmentDialog open={assessmentOpen} onOpenChange={setAssessmentOpen} />
+            <WelcomeDialog open={welcomeOpen} onOpenChange={handleWelcomeChange} />
             <Toaster />
         </div>
     )
