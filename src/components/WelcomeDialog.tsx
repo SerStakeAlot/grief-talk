@@ -18,7 +18,7 @@ export function WelcomeDialog({ open, onOpenChange }: WelcomeDialogProps) {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-3xl w-full max-h-[90vh] overflow-hidden border-secondary/40 bg-background/95 backdrop-blur-xl">
+      <DialogContent className="max-w-3xl w-full max-h-[90dvh] sm:max-h-[85vh] overflow-hidden border-secondary/40 bg-background/95 backdrop-blur-xl flex flex-col p-6 sm:p-8 gap-6">
         <DialogHeader className="space-y-2 text-left">
           <p className="text-xs uppercase tracking-[0.35em] text-secondary">Welcome to GRIEF Talk™</p>
           <DialogTitle className="text-3xl font-serif text-primary">
@@ -29,7 +29,7 @@ export function WelcomeDialog({ open, onOpenChange }: WelcomeDialogProps) {
           </DialogDescription>
         </DialogHeader>
 
-        <ScrollArea className="max-h-[55vh] pr-3">
+        <ScrollArea className="flex-1 min-h-0 pr-3">
           <div className="space-y-4 text-base leading-relaxed text-muted-foreground">
             <p>
               Welcome to GRIEF Talk — a space that was not built in comfort, but birthed in the middle of trauma, isolation, depression, pain, misfortune, humiliation, shame, and yes… more tears than I could ever count.
