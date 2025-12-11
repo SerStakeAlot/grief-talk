@@ -31,7 +31,7 @@ export function Hero() {
                         </p>
                         <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-bold text-primary leading-tight space-y-2">
                             <span className="block">GRIEF Talk™ –</span>
-                            <span className="block text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-normal">
+                            <span className="block text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-normal">
                                 Where Silence Ends and Healing Begins.
                             </span>
                         </h1>
