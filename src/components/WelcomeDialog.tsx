@@ -1,6 +1,5 @@
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
-import { ScrollArea } from '@/components/ui/scroll-area'
 
 const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSd7COGGazlQIs3fS-uO8DBn-UllwLmpeELp5s3OvaZAlhfljQ/viewform'
 
@@ -29,8 +28,8 @@ export function WelcomeDialog({ open, onOpenChange }: WelcomeDialogProps) {
           </DialogDescription>
         </DialogHeader>
 
-        <ScrollArea className="flex-1 min-h-0 pr-3">
-          <div className="space-y-4 text-base leading-relaxed text-muted-foreground">
+        <div className="flex-1 min-h-0 overflow-y-auto pr-1 sm:pr-3">
+          <div className="space-y-4 text-base leading-relaxed text-muted-foreground pb-4">
             <p>
               Welcome to GRIEF Talk — a space that was not built in comfort, but birthed in the middle of trauma, isolation, depression, pain, misfortune, humiliation, shame, and yes… more tears than I could ever count.
             </p>
@@ -80,7 +79,7 @@ export function WelcomeDialog({ open, onOpenChange }: WelcomeDialogProps) {
               <p className="font-serif text-primary font-semibold">Richard Brown III</p>
             </div>
           </div>
-        </ScrollArea>
+        </div>
 
         <DialogFooter className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <Button variant="ghost" onClick={() => onOpenChange(false)}>
