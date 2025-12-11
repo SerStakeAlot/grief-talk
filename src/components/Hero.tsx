@@ -29,8 +29,11 @@ export function Hero() {
                         <p className="uppercase tracking-[0.35em] text-xs sm:text-sm text-secondary">
                             A Movement by Richard Brown III
                         </p>
-                        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-bold text-primary leading-tight">
-                            GRIEF Talk™ – Where Silence Ends and Healing Begins
+                        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-bold text-primary leading-tight space-y-2">
+                            <span className="block">GRIEF Talk™ –</span>
+                            <span className="block text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-normal">
+                                Where Silence Ends and Healing Begins.
+                            </span>
                         </h1>
                         <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto lg:mx-0 leading-relaxed">
                             A movement envisioned by Richard Brown III, America’s Grief & Trauma-Informed Coach, equipping individuals, families, and communities with tools for grief, trauma, faith, and healing.
