@@ -11,8 +11,8 @@ const offerings = [
   },
   {
     icon: '📚',
-    title: 'Books & Resources',
-    description: 'Tools like Closure, The 24 Laws of Trauma, and Scandal: Handle with Care and Prayer.'
+    title: 'Library & Resources',
+    description: 'Ebooks like Closure, The 24 Laws of Trauma, and Scandal: Handle with Care and Prayer — plus free PDFs.'
   },
   {
     icon: '🎓',
@@ -589,7 +589,7 @@ export function Home({ onOpenAssessment }: HomeProps) {
                 </Button>
               </div>
             )}
-            <Link to="/books" className="w-full sm:w-auto max-w-xs sm:max-w-none">
+            <Link to="/library" className="w-full sm:w-auto max-w-xs sm:max-w-none">
               <Button size="lg" className="w-full bg-primary text-primary-foreground hover:bg-primary/90">
                 Purchase Your Copy of Closure
               </Button>

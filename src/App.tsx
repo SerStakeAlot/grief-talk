@@ -8,7 +8,7 @@ import { WelcomeDialog } from '@/components/WelcomeDialog'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import { Home } from '@/pages/Home'
 import { AboutPage } from '@/pages/AboutPage'
-import { BooksPage } from '@/pages/BooksPage'
+import { LibraryPage } from '@/pages/LibraryPage'
 import { ContactPage } from '@/pages/ContactPage'
 import { NotFound } from '@/pages/NotFound'
 import { OperationalTraumaPage } from '@/pages/OperationalTraumaPage'
@@ -87,7 +87,7 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Home onOpenAssessment={() => setAssessmentOpen(true)} />} />
                     <Route path="/about" element={<AboutPage />} />
-                    <Route path="/books" element={<BooksPage />} />
+                    <Route path="/library" element={<LibraryPage />} />
                     <Route path="/contact" element={<ContactPage />} />
                     <Route path="/operational-trauma" element={<OperationalTraumaPage />} />
                     <Route path="*" element={<NotFound />} />

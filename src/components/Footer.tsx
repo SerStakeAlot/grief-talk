@@ -34,11 +34,11 @@ export function Footer() {
                             </li>
                             <li>
                                 <Link
-                                    to="/books"
+                                    to="/library"
                                     className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white text-primary font-semibold shadow-md hover:bg-amber-100 hover:text-primary transition-colors"
                                 >
                                     <span className="h-1.5 w-1.5 rounded-full bg-secondary" />
-                                    Books
+                                    Library
                                 </Link>
                             </li>
                             <li>
