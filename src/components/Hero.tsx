@@ -4,7 +4,7 @@ import richardPortrait from '@/assets/images/richard-brown.jpg'
 import { Link } from 'react-router-dom'
 
 export function Hero() {
-    const podcastUrl = 'https://example.com/podcast'
+    const podcastUrl = '/podcast'
 
     return (
         <section

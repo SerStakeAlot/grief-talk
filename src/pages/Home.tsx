@@ -26,7 +26,7 @@ const offerings = [
   }
 ]
 
-const podcastUrl = 'https://example.com/podcast'
+const podcastUrl = '/podcast'
 const academyUrl = 'https://example.com/academy'
 
 const intakeHighlights = [

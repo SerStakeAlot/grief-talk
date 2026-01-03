@@ -23,6 +23,7 @@ export function Navigation({ mobileMenuOpen, setMobileMenuOpen }: NavigationProp
     const navItems = [
         { label: 'Home', path: '/' },
         { label: 'About', path: '/about' },
+        { label: 'Podcast', path: '/podcast' },
         { label: 'Library', path: '/library' },
         { label: 'Operational Trauma', path: '/operational-trauma' },
         { label: 'Contact', path: '/contact' },
