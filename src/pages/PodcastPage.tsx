@@ -65,8 +65,7 @@ export function PodcastPage() {
     fetchPodcastFeed()
   }, [])
 
-  const applePodcastsUrl = 'https://podcasts.apple.com/us/podcast/grief-talk/id1234567890'
-  const spotifyUrl = 'https://open.spotify.com/show/YOUR_SHOW_ID'
+  const applePodcastsUrl = 'https://podcasts.apple.com/us/podcast/grief-talk-unfiltered/id1865849991'
 
   return (
     <div className="min-h-screen bg-background">
@@ -98,15 +97,6 @@ export function PodcastPage() {
             >
               <Microphone size={24} weight="fill" />
               Apple Podcasts
-            </Button>
-            <Button 
-              size="lg" 
-              variant="outline"
-              className="border-primary text-primary hover:bg-primary hover:text-primary-foreground gap-2"
-              onClick={() => window.open(spotifyUrl, '_blank')}
-            >
-              <Microphone size={24} weight="fill" />
-              Spotify
             </Button>
           </div>
         </div>
@@ -223,15 +213,6 @@ export function PodcastPage() {
             >
               <Microphone size={24} weight="fill" />
               Subscribe on Apple Podcasts
-            </Button>
-            <Button 
-              size="lg" 
-              variant="outline"
-              className="border-primary text-primary hover:bg-primary hover:text-primary-foreground gap-2"
-              onClick={() => window.open(spotifyUrl, '_blank')}
-            >
-              <Microphone size={24} weight="fill" />
-              Subscribe on Spotify
             </Button>
           </div>
         </div>
