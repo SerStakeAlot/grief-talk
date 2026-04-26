@@ -1,622 +1,807 @@
 import { Hero } from '@/components/Hero'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
 import { Link } from 'react-router-dom'
 
-const offerings = [
-  {
-    icon: '🎙️',
-    title: 'Podcast',
-    description: 'Raw, real conversations about grief, trauma, and healing.'
-  },
-  {
-    icon: '📚',
-    title: 'Library & Resources',
-    description: 'Ebooks like Closure, The 24 Laws of Trauma, and Scandal: Handle with Care and Prayer — plus free PDFs.'
-  },
-  {
-    icon: '🎓',
-    title: 'GRIEF in Action Academy',
-    description: 'Courses, certifications, and workshops equipping families, churches, and leaders.'
-  },
-  {
-    icon: '🎤',
-    title: 'Speaking & Coaching',
-    description: 'Nationwide teaching with prophetic boldness and practical tools.'
-  }
+/* ── Reusable Section wrapper ── */
+const W = 1200
+const sectionBase: React.CSSProperties = {
+    maxWidth: W,
+    margin: '0 auto',
+    padding: '7rem 2.5rem',
+}
+
+/* ── Pillar data ── */
+const pillars = [
+    {
+        letter: 'G',
+        name: 'GRIEF',
+        tagline: 'Grief · Recovery · Intervention · Education · Freedom',
+        items: [
+            { key: 'G – Grief', val: 'The honest acknowledgement of loss in all its forms — not just death.' },
+            { key: 'R – Recovery', val: 'A compassionate journey of rebuilding and returning to yourself.' },
+            { key: 'I – Intervention', val: 'Tools, support, and conversations that interrupt harmful cycles.' },
+            { key: 'E – Education', val: 'Learning the language of grief and trauma to heal with intention.' },
+            { key: 'F – Freedom', val: 'Living no longer imprisoned by what happened.' },
+        ],
+    },
+    {
+        letter: 'T',
+        name: 'TALK',
+        tagline: 'Truth-Telling · Awareness · Listening · Knowledge',
+        items: [
+            { key: 'T – Truth-Telling', val: 'Honest speech about what happened and how it lives in the body.' },
+            { key: 'A – Awareness', val: 'Noticing emotions, triggers, and patterns with clarity instead of shame.' },
+            { key: 'L – Listening', val: 'Hearing your own story and others without judgment.' },
+            { key: 'K – Knowledge', val: 'Applying wisdom and tools that move people toward restoration.' },
+        ],
+    },
+    {
+        letter: 'T',
+        name: 'TRAUMA',
+        tagline: 'Triggered Pain · Responses · Avoidance · Unresolved Emotions · Memories · Acceptance',
+        items: [
+            { key: 'T – Triggered Pain', val: 'Emotional flashpoints that reveal unresolved wounds.' },
+            { key: 'R – Responses', val: 'Present behaviors shaped by earlier painful events.' },
+            { key: 'A – Avoidance', val: 'Survival responses: coping around pain rather than through it.' },
+            { key: 'U – Unresolved Emotions', val: 'Feelings buried or never safely expressed, still impacting today.' },
+            { key: 'M – Memories', val: 'Experiences that continue to shape identity and relationships.' },
+            { key: 'A – Acceptance', val: 'The healing movement: accept, become aware, take courageous action.' },
+        ],
+    },
 ]
 
-const podcastUrl = '/podcast'
-const academyUrl = 'https://example.com/academy'
-
-const intakeHighlights = [
-  {
-    title: 'Purpose of the Intake Session',
-    items: [
-      'Understand your story, your needs, and what brought you here.',
-      'Identify the grief, trauma, or transition you are navigating.',
-      'Assess the emotional, spiritual, and practical impact on daily life.',
-      'Determine whether grief coaching, trauma-informed support, or another resource is the best fit.',
-      'Establish clear goals for the next 3–6 months and outline your roadmap.'
-    ]
-  },
-  {
-    title: 'Why the Intake Matters',
-    items: [
-      'You are placed on the right coaching path from day one.',
-      'Support is tailored to your unique situation and pace.',
-      'Coach B and you begin with clarity, alignment, and shared expectations.',
-      'Emotional safety is prioritized before deeper coaching work begins.',
-      'Breakthrough moments happen sooner because of intentional preparation.'
-    ]
-  },
-  {
-    title: 'What Happens During the Intake',
-    items: [
-      'Share the loss, life event, or emotional burden you are carrying.',
-      'Explore how it is affecting your day-to-day experience.',
-      'Identify focus areas for the next several months of coaching.',
-      'Discuss preferred coaching style, accountability, and session rhythm.',
-      'Review the structure of the six-month coaching journey and ask questions.'
-    ]
-  },
-  {
-    title: 'After the Intake Session',
-    items: [
-      'Receive a personalized coaching recommendation and timeline.',
-      'Review a proposed 3–6 month healing and growth plan.',
-      'Confirm suggested session frequency (weekly or biweekly).',
-      'Understand coaching expectations, boundaries, and next steps.',
-      'Lock in the official start date for your recurring sessions.'
-    ]
-  }
+/* ── Intake data ── */
+const intakeCards = [
+    {
+        numeral: 'I',
+        title: 'Purpose of the Intake Session',
+        items: [
+            'Understand your story, your needs, and what brought you here.',
+            'Identify the grief, trauma, or transition you are navigating.',
+            'Assess the emotional, spiritual, and practical impact on daily life.',
+            'Determine whether grief coaching or another resource is the best fit.',
+            'Establish clear goals for the next 3–6 months.',
+        ],
+    },
+    {
+        numeral: 'II',
+        title: 'Why the Intake Matters',
+        items: [
+            'You are placed on the right coaching path from day one.',
+            'Support is tailored to your unique situation and pace.',
+            'Coach B and you begin with clarity, alignment, and shared expectations.',
+            'Emotional safety is prioritized before deeper coaching work begins.',
+            'Breakthrough moments happen sooner because of intentional preparation.',
+        ],
+    },
+    {
+        numeral: 'III',
+        title: 'What Happens During the Intake',
+        items: [
+            'Share the loss, life event, or emotional burden you carry.',
+            'Explore how it is affecting your day-to-day experience.',
+            'Identify focus areas for the next several months of coaching.',
+            'Discuss preferred coaching style and session rhythm.',
+            'Review the structure of the six-month coaching journey.',
+        ],
+    },
+    {
+        numeral: 'IV',
+        title: 'After the Intake Session',
+        items: [
+            'Receive a personalized coaching recommendation and timeline.',
+            'Review a proposed 3–6 month healing and growth plan.',
+            'Confirm suggested session frequency (weekly or biweekly).',
+            'Understand coaching expectations, boundaries, and next steps.',
+            'Lock in the official start date for your recurring sessions.',
+        ],
+    },
 ]
 
 interface HomeProps {
-  onOpenAssessment?: () => void
+    onOpenAssessment?: () => void
 }
 
 export function Home({ onOpenAssessment }: HomeProps) {
-  return (
-    <div className="space-y-16">
-      <Hero />
+    return (
+        <div>
+            {/* ──────────────────────────────────────── HERO ── */}
+            <Hero />
 
-      <section data-animate="fade-up" className="bg-background py-12 sm:py-16 lg:py-20">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 text-center">
-          <p className="text-2xl sm:text-3xl font-serif text-primary">
-            “You don’t have to heal in silence.”
-          </p>
-          <p className="text-lg text-muted-foreground leading-relaxed">
-            For too long, grief and trauma have been pushed into the shadows. At GRIEF Talk™, we believe healing begins when truth is spoken, wounds are named, and hope is reclaimed.
-          </p>
-          <p className="text-lg text-muted-foreground leading-relaxed">
-            As the visionary of Brown Legacy Memorial (BLM), Richard Brown III built more than a funeral service — he created a parent company dedicated to pre-care, technology, and most importantly, aftercare. Out of that vision was born the GRIEF in Action Academy, the aftercare and educational subsidiary of BLM designed to equip families, churches, and leaders with trauma-informed tools for healing. From this Academy grew the GRIEF Talk Podcast, the public teaching platform that extends BLM’s mission far beyond the funeral home.
-          </p>
-          <p className="text-lg text-muted-foreground leading-relaxed">
-            Through the GRIEF Talk Podcast, books, and the GRIEF in Action Academy, Richard provides bold, trauma-informed, faith-rooted resources to help you move from pain to purpose. Whether you’re navigating personal loss, unresolved grief, or the weight of trauma, GRIEF Talk is a safe space designed for truth-telling and transformation.
-          </p>
-        </div>
-      </section>
+            {/* ──────────────────────────────── QUOTE BAND ── */}
+            <section
+                style={{
+                    background: 'var(--paper, #faf6ee)',
+                    padding: '7rem 2.5rem',
+                    position: 'relative',
+                    overflow: 'hidden',
+                }}
+            >
+                {/* Decorative blobs */}
+                <div
+                    style={{
+                        position: 'absolute',
+                        top: '-4rem',
+                        left: '-4rem',
+                        width: 300,
+                        height: 300,
+                        borderRadius: '50%',
+                        background: 'radial-gradient(circle, rgba(200,84,30,0.07) 0%, transparent 70%)',
+                        pointerEvents: 'none',
+                    }}
+                    aria-hidden="true"
+                />
+                <div
+                    style={{
+                        position: 'absolute',
+                        bottom: '-4rem',
+                        right: '-4rem',
+                        width: 280,
+                        height: 280,
+                        borderRadius: '50%',
+                        background: 'radial-gradient(circle, rgba(212,164,69,0.08) 0%, transparent 70%)',
+                        pointerEvents: 'none',
+                    }}
+                    aria-hidden="true"
+                />
+                <div style={{ maxWidth: 800, margin: '0 auto', textAlign: 'center', position: 'relative', zIndex: 1 }}>
+                    <span
+                        style={{
+                            fontFamily: "'Fraunces', Georgia, serif",
+                            fontStyle: 'italic',
+                            fontSize: '6rem',
+                            lineHeight: 0.7,
+                            color: 'var(--ember, #c8541e)',
+                            display: 'block',
+                            marginBottom: '1rem',
+                            opacity: 0.4,
+                        }}
+                        aria-hidden="true"
+                    >
+                        "
+                    </span>
+                    <p
+                        style={{
+                            fontFamily: "'Fraunces', Georgia, serif",
+                            fontWeight: 300,
+                            fontStyle: 'italic',
+                            fontSize: 'clamp(1.75rem, 3.5vw, 2.75rem)',
+                            lineHeight: 1.25,
+                            color: 'var(--ink, #1f1612)',
+                            maxWidth: '28ch',
+                            margin: '0 auto 1.5rem',
+                        }}
+                    >
+                        You don't have to heal in silence.
+                    </p>
+                    <p
+                        style={{
+                            fontFamily: "'Inter', system-ui, sans-serif",
+                            fontSize: '0.72rem',
+                            fontWeight: 600,
+                            letterSpacing: '0.22em',
+                            textTransform: 'uppercase',
+                            color: 'var(--ink-soft, #3a2a22)',
+                        }}
+                    >
+                        — Richard Brown III, GRIEF Talk™
+                    </p>
+                </div>
+            </section>
 
-      <section data-animate="fade-up" className="py-12 sm:py-16 lg:py-20 bg-background">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
-          <div className="text-center space-y-3">
-            <span className="text-secondary uppercase tracking-[0.3em] text-xs">The GRIEF Talk™ Framework</span>
-            <h2 className="text-3xl sm:text-4xl font-serif text-primary">
-              GRIEF Talk™ and TRAUMA
-            </h2>
-            <p className="text-muted-foreground max-w-3xl mx-auto text-base sm:text-lg leading-relaxed">
-              GRIEF Talk™ is more than a title — it is a trauma-informed framework that gives language to what you feel, what you have survived, and how you can move toward healing.
-            </p>
-            {onOpenAssessment && (
-              <div className="pt-4 flex justify-center">
-                <Button
-                  size="lg"
-                  className="bg-secondary text-secondary-foreground hover:bg-secondary/90 w-auto px-8"
-                  onClick={onOpenAssessment}
+            {/* ─────────────────────────────────── STORY ── */}
+            <section
+                data-animate="fade-up"
+                style={{ background: 'var(--cream, #f5efe6)', padding: '7rem 0' }}
+            >
+                <div
+                    style={{
+                        maxWidth: W,
+                        margin: '0 auto',
+                        padding: '0 2.5rem',
+                        display: 'grid',
+                        gridTemplateColumns: '1fr 1.4fr',
+                        // mobile handled by .story-grid media query
+                        gap: '5rem',
+                        alignItems: 'start',
+                    }}
+                    className="story-grid"
                 >
-                  Take the GRIEF Talk™ &amp; Trauma Assessment
-                </Button>
-              </div>
-            )}
-          </div>
+                    {/* Sticky heading */}
+                    <div className="story-sticky" style={{ position: 'sticky', top: '7rem' }}>
+                        <p className="eyebrow" style={{ marginBottom: '1rem' }}>01 — The Movement</p>
+                        <h2
+                            style={{
+                                fontFamily: "'Fraunces', Georgia, serif",
+                                fontWeight: 300,
+                                fontSize: 'clamp(2rem, 4vw, 3rem)',
+                                lineHeight: 1.1,
+                                color: 'var(--ink, #1f1612)',
+                            }}
+                        >
+                            Where truth is spoken and{' '}
+                            <em style={{ fontStyle: 'italic', color: 'var(--ember-deep, #a8421a)' }}>wounds</em>{' '}
+                            are named
+                        </h2>
+                    </div>
 
-          <div className="grid gap-8 lg:grid-cols-3">
-            <Card className="bg-card border-border card-elevated">
-              <CardContent className="p-6 space-y-4">
-                <div>
-                  <p className="text-xs font-semibold tracking-[0.3em] uppercase text-secondary mb-1">GRIEF</p>
-                  <p className="text-sm text-muted-foreground mb-3">Grief • Recovery • Intervention • Education • Freedom</p>
+                    {/* Body copy */}
+                    <div
+                        style={{
+                            fontFamily: "'Fraunces', Georgia, serif",
+                            fontWeight: 400,
+                            fontSize: '1.1rem',
+                            lineHeight: 1.75,
+                            color: 'var(--ink-soft, #3a2a22)',
+                        }}
+                    >
+                        <p className="drop-cap">
+                            For too long, grief and trauma have been pushed into the shadows. At GRIEF Talk™, we believe healing begins when truth is spoken, wounds are named, and hope is reclaimed.
+                        </p>
+                        <p style={{ marginTop: '1.25rem' }}>
+                            Richard Brown III founded Brown Legacy Memorial and the GRIEF in Action Academy — building spaces where aftercare, education, and truth-telling converge. From that vision grew the GRIEF Talk Podcast, a public teaching platform extending the mission far beyond the funeral home.
+                        </p>
+                        <p style={{ marginTop: '1.25rem' }}>
+                            Through the Podcast, books, and the Academy, Richard provides bold, trauma-informed, faith-rooted resources to help you move from pain to purpose. Whether you're navigating personal loss, unresolved grief, or the weight of operational trauma — GRIEF Talk is a safe space designed for truth-telling and transformation.
+                        </p>
+                        <div style={{ marginTop: '2rem', display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+                            <Link
+                                to="/about"
+                                style={{
+                                    display: 'inline-flex',
+                                    alignItems: 'center',
+                                    padding: '0.65rem 1.5rem',
+                                    borderRadius: '999px',
+                                    background: 'var(--ink, #1f1612)',
+                                    color: 'var(--cream, #f5efe6)',
+                                    fontFamily: "'Inter', system-ui, sans-serif",
+                                    fontWeight: 600,
+                                    fontSize: '0.88rem',
+                                    letterSpacing: '0.02em',
+                                    textDecoration: 'none',
+                                    transition: 'background 0.25s',
+                                }}
+                                onMouseEnter={e => (e.currentTarget.style.background = 'var(--ember, #c8541e)')}
+                                onMouseLeave={e => (e.currentTarget.style.background = 'var(--ink, #1f1612)')}
+                            >
+                                Read the Full Story
+                            </Link>
+                        </div>
+                    </div>
                 </div>
-                <div className="space-y-3 text-sm sm:text-base text-foreground leading-relaxed">
-                  <div>
-                    <p className="font-semibold">G – Grief</p>
-                    <p>
-                      The honest acknowledgement of loss — emotional, relational, spiritual, personal, or identity-based. Grief is not just death; it is any moment where something in us, or around us, changes forever.
-                    </p>
-                  </div>
-                  <div>
-                    <p className="font-semibold">R – Recovery</p>
-                    <p>
-                      The ongoing process of rebuilding, restoring, and reclaiming the parts of yourself that pain tried to silence. Recovery is not instant; it is a compassionate journey of coming back to yourself.
-                    </p>
-                  </div>
-                  <div>
-                    <p className="font-semibold">I – Intervention</p>
-                    <p>
-                      The tools, support, practices, and conversations that interrupt harmful cycles — through coaching, community, therapy, faith, or truth-telling.
-                    </p>
-                  </div>
-                  <div>
-                    <p className="font-semibold">E – Education</p>
-                    <p>
-                      Learning the language of grief and trauma so that healing becomes intentional and informed. Education removes shame, reveals patterns, and empowers people with knowledge.
-                    </p>
-                  </div>
-                  <div>
-                    <p className="font-semibold">F – Freedom</p>
-                    <p>
-                      The emotional, mental, and spiritual liberation that comes when grief is named, processed, and transformed. Freedom is not forgetting — it is living without being imprisoned by what happened.
-                    </p>
-                  </div>
+                <style>{`
+                    .story-grid { grid-template-columns: 1fr 1.4fr; }
+                    @media (max-width: 960px) {
+                        .story-grid { grid-template-columns: 1fr !important; }
+                    }
+                `}</style>
+            </section>
+
+            {/* ─────────────────────────── FRAMEWORK PILLARS ── */}
+            <section
+                data-animate="fade-up"
+                style={{
+                    background: 'linear-gradient(to bottom, var(--cream, #f5efe6), var(--cream-deep, #ede4d3))',
+                    padding: '7rem 0',
+                }}
+            >
+                <div style={{ ...sectionBase, padding: '0 2.5rem' }}>
+                    <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
+                        <p className="eyebrow" style={{ marginBottom: '0.75rem' }}>The Framework</p>
+                        <h2
+                            style={{
+                                fontFamily: "'Fraunces', Georgia, serif",
+                                fontWeight: 300,
+                                fontSize: 'clamp(2rem, 4vw, 3rem)',
+                                color: 'var(--ink, #1f1612)',
+                                lineHeight: 1.1,
+                            }}
+                        >
+                            GRIEF · TALK ·{' '}
+                            <em style={{ fontStyle: 'italic', color: 'var(--ember-deep, #a8421a)' }}>TRAUMA</em>
+                        </h2>
+                        <p
+                            style={{
+                                fontFamily: "'Fraunces', Georgia, serif",
+                                fontWeight: 400,
+                                fontSize: '1.05rem',
+                                color: 'var(--ink-soft, #3a2a22)',
+                                maxWidth: '52ch',
+                                margin: '1rem auto 0',
+                                lineHeight: 1.65,
+                            }}
+                        >
+                            A trauma-informed framework that gives language to what you feel, what you've survived, and how you can move toward healing.
+                        </p>
+                        {onOpenAssessment && (
+                            <button
+                                onClick={onOpenAssessment}
+                                style={{
+                                    marginTop: '1.5rem',
+                                    display: 'inline-flex',
+                                    alignItems: 'center',
+                                    padding: '0.65rem 1.75rem',
+                                    borderRadius: '999px',
+                                    background: 'var(--ember, #c8541e)',
+                                    color: '#f5efe6',
+                                    fontFamily: "'Inter', system-ui, sans-serif",
+                                    fontWeight: 600,
+                                    fontSize: '0.88rem',
+                                    border: 'none',
+                                    cursor: 'pointer',
+                                    letterSpacing: '0.02em',
+                                    transition: 'background 0.25s',
+                                }}
+                                onMouseEnter={e => (e.currentTarget.style.background = 'var(--ember-deep, #a8421a)')}
+                                onMouseLeave={e => (e.currentTarget.style.background = 'var(--ember, #c8541e)')}
+                            >
+                                Take the GRIEF Talk™ Assessment
+                            </button>
+                        )}
+                    </div>
+
+                    {/* Three-column pillar cards */}
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.75rem' }} className="pillars-grid">
+                        {pillars.map(pillar => (
+                            <div
+                                key={pillar.name}
+                                className="pillar-card"
+                                style={{
+                                    background: 'var(--paper, #faf6ee)',
+                                    borderRadius: 24,
+                                    border: '1px solid rgba(31,22,18,0.12)',
+                                    padding: '2rem',
+                                    boxShadow: '0 2px 12px rgba(31,22,18,0.06)',
+                                }}
+                            >
+                                {/* Giant letter */}
+                                <div
+                                    style={{
+                                        fontFamily: "'Fraunces', Georgia, serif",
+                                        fontWeight: 300,
+                                        fontSize: '6.5rem',
+                                        lineHeight: 0.9,
+                                        color: 'var(--ember, #c8541e)',
+                                        marginBottom: '0.5rem',
+                                        opacity: 0.25,
+                                        userSelect: 'none',
+                                    }}
+                                    aria-hidden="true"
+                                >
+                                    {pillar.letter}
+                                </div>
+                                <p
+                                    style={{
+                                        fontFamily: "'Fraunces', Georgia, serif",
+                                        fontWeight: 500,
+                                        fontSize: '1.5rem',
+                                        color: 'var(--ink, #1f1612)',
+                                        marginBottom: '0.35rem',
+                                    }}
+                                >
+                                    {pillar.name}
+                                </p>
+                                <p
+                                    style={{
+                                        fontFamily: "'Inter', system-ui, sans-serif",
+                                        fontSize: '0.7rem',
+                                        fontWeight: 600,
+                                        letterSpacing: '0.1em',
+                                        textTransform: 'uppercase',
+                                        color: 'var(--ink-soft, #3a2a22)',
+                                        marginBottom: '1.25rem',
+                                        opacity: 0.7,
+                                    }}
+                                >
+                                    {pillar.tagline}
+                                </p>
+                                {/* Hairline rule */}
+                                <div style={{ height: 1, background: 'rgba(31,22,18,0.1)', marginBottom: '1.25rem' }} />
+                                <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+                                    {pillar.items.map(item => (
+                                        <li key={item.key} style={{ display: 'flex', gap: '0.5rem', alignItems: 'baseline' }}>
+                                            <span
+                                                style={{
+                                                    fontFamily: "'Fraunces', Georgia, serif",
+                                                    fontStyle: 'italic',
+                                                    fontWeight: 500,
+                                                    fontSize: '0.9rem',
+                                                    color: 'var(--ink, #1f1612)',
+                                                    flexShrink: 0,
+                                                    minWidth: '12ch',
+                                                }}
+                                            >
+                                                {item.key}
+                                            </span>
+                                            <span
+                                                style={{
+                                                    fontFamily: "'Inter', system-ui, sans-serif",
+                                                    fontSize: '0.88rem',
+                                                    color: 'var(--ink-soft, #3a2a22)',
+                                                    lineHeight: 1.5,
+                                                }}
+                                            >
+                                                — {item.val}
+                                            </span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        ))}
+                    </div>
                 </div>
-              </CardContent>
-            </Card>
+                <style>{`
+                    .pillars-grid { grid-template-columns: repeat(3, 1fr); }
+                    @media (max-width: 960px) {
+                        .pillars-grid { grid-template-columns: 1fr !important; }
+                    }
+                `}</style>
+            </section>
 
-            <Card className="bg-card border-border card-elevated">
-              <CardContent className="p-6 space-y-4">
-                <div>
-                  <p className="text-xs font-semibold tracking-[0.3em] uppercase text-secondary mb-1">TALK</p>
-                  <p className="text-sm text-muted-foreground mb-3">Truth-Telling • Awareness • Listening • Knowledge for Healing</p>
+            {/* ──────────────────────────── INTAKE PROCESS ── */}
+            <section
+                data-animate="fade-up"
+                style={{ background: 'var(--paper, #faf6ee)', padding: '7rem 0' }}
+            >
+                <div style={{ ...sectionBase, padding: '0 2.5rem' }}>
+                    <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
+                        <p className="eyebrow" style={{ marginBottom: '0.75rem' }}>Coaching Intake</p>
+                        <h2
+                            style={{
+                                fontFamily: "'Fraunces', Georgia, serif",
+                                fontWeight: 300,
+                                fontSize: 'clamp(2rem, 4vw, 3rem)',
+                                color: 'var(--ink, #1f1612)',
+                                lineHeight: 1.1,
+                            }}
+                        >
+                            The GRIEF Talk™{' '}
+                            <em style={{ fontStyle: 'italic', color: 'var(--ember-deep, #a8421a)' }}>Intake</em>{' '}
+                            Process
+                        </h2>
+                        <p
+                            style={{
+                                fontFamily: "'Fraunces', Georgia, serif",
+                                fontWeight: 400,
+                                fontSize: '1.05rem',
+                                color: 'var(--ink-soft, #3a2a22)',
+                                maxWidth: '52ch',
+                                margin: '1rem auto 0',
+                                lineHeight: 1.65,
+                            }}
+                        >
+                            A required 45–60 minute intake session before your coaching journey begins — because intentional preparation leads to breakthrough.
+                        </p>
+                    </div>
+
+                    {/* 2×2 intake cards */}
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1.5rem' }} className="intake-grid">
+                        {intakeCards.map(card => (
+                            <div
+                                key={card.numeral}
+                                className="intake-card"
+                                style={{
+                                    background: 'var(--paper, #faf6ee)',
+                                    borderRadius: 20,
+                                    border: '1px solid rgba(31,22,18,0.12)',
+                                    padding: '2rem',
+                                    boxShadow: '0 2px 8px rgba(31,22,18,0.05)',
+                                }}
+                            >
+                                {/* Roman numeral */}
+                                <p
+                                    style={{
+                                        fontFamily: "'Fraunces', Georgia, serif",
+                                        fontStyle: 'italic',
+                                        fontSize: '2rem',
+                                        fontWeight: 400,
+                                        color: 'var(--ember, #c8541e)',
+                                        marginBottom: '0.5rem',
+                                        lineHeight: 1,
+                                    }}
+                                >
+                                    {card.numeral}
+                                </p>
+                                <h3
+                                    style={{
+                                        fontFamily: "'Fraunces', Georgia, serif",
+                                        fontWeight: 500,
+                                        fontSize: '1.2rem',
+                                        color: 'var(--ink, #1f1612)',
+                                        marginBottom: '1rem',
+                                        lineHeight: 1.3,
+                                    }}
+                                >
+                                    {card.title}
+                                </h3>
+                                <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
+                                    {card.items.map(item => (
+                                        <li key={item} style={{ display: 'flex', gap: '0.6rem', alignItems: 'flex-start' }}>
+                                            <span
+                                                style={{
+                                                    width: 6,
+                                                    height: 6,
+                                                    borderRadius: '50%',
+                                                    background: 'var(--ember, #c8541e)',
+                                                    marginTop: '0.45rem',
+                                                    flexShrink: 0,
+                                                }}
+                                                aria-hidden="true"
+                                            />
+                                            <span
+                                                style={{
+                                                    fontFamily: "'Inter', system-ui, sans-serif",
+                                                    fontSize: '0.88rem',
+                                                    color: 'var(--ink-soft, #3a2a22)',
+                                                    lineHeight: 1.55,
+                                                }}
+                                            >
+                                                {item}
+                                            </span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        ))}
+                    </div>
+
+                    <div style={{ textAlign: 'center', marginTop: '3rem' }}>
+                        <p
+                            style={{
+                                fontFamily: "'Fraunces', Georgia, serif",
+                                fontStyle: 'italic',
+                                fontWeight: 300,
+                                fontSize: '1.25rem',
+                                color: 'var(--ink, #1f1612)',
+                                marginBottom: '1.75rem',
+                                maxWidth: '50ch',
+                                margin: '0 auto 1.75rem',
+                            }}
+                        >
+                            "This is the moment we lay the groundwork — not for perfection, but for progress."
+                        </p>
+                        <div className="btn-row" style={{ display: 'flex', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap' }}>
+                            <Link
+                                to="/contact"
+                                style={{
+                                    display: 'inline-flex',
+                                    alignItems: 'center',
+                                    padding: '0.75rem 2rem',
+                                    borderRadius: '999px',
+                                    background: 'var(--ink, #1f1612)',
+                                    color: 'var(--cream, #f5efe6)',
+                                    fontFamily: "'Inter', system-ui, sans-serif",
+                                    fontWeight: 600,
+                                    fontSize: '0.9rem',
+                                    letterSpacing: '0.02em',
+                                    textDecoration: 'none',
+                                    transition: 'background 0.25s',
+                                }}
+                                onMouseEnter={e => (e.currentTarget.style.background = 'var(--ember, #c8541e)')}
+                                onMouseLeave={e => (e.currentTarget.style.background = 'var(--ink, #1f1612)')}
+                            >
+                                Schedule Your Intake Session
+                            </Link>
+                            {onOpenAssessment && (
+                                <button
+                                    onClick={onOpenAssessment}
+                                    style={{
+                                        display: 'inline-flex',
+                                        alignItems: 'center',
+                                        padding: '0.75rem 2rem',
+                                        borderRadius: '999px',
+                                        background: 'transparent',
+                                        color: 'var(--ember, #c8541e)',
+                                        fontFamily: "'Inter', system-ui, sans-serif",
+                                        fontWeight: 600,
+                                        fontSize: '0.9rem',
+                                        border: '1.5px solid var(--ember, #c8541e)',
+                                        cursor: 'pointer',
+                                        letterSpacing: '0.02em',
+                                        transition: 'background 0.25s, color 0.25s',
+                                    }}
+                                    onMouseEnter={e => { e.currentTarget.style.background = 'var(--ember, #c8541e)'; e.currentTarget.style.color = '#f5efe6' }}
+                                    onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = 'var(--ember, #c8541e)' }}
+                                >
+                                    Take the Assessment
+                                </button>
+                            )}
+                        </div>
+                    </div>
                 </div>
-                <div className="space-y-3 text-sm sm:text-base text-foreground leading-relaxed">
-                  <div>
-                    <p className="font-semibold">T – Truth-Telling</p>
-                    <p>
-                      Honesty about what happened, how it affected you, and what you still carry. Truth frees you from silence, suppression, and pretending you are okay when you are not.
+                <style>{`
+                    .intake-grid { grid-template-columns: repeat(2, 1fr); }
+                    @media (max-width: 960px) {
+                        .intake-grid { grid-template-columns: 1fr !important; }
+                    }
+                `}</style>
+            </section>
+
+            {/* ────────────────────────────── CTA DARK BAND ── */}
+            <section
+                data-animate="fade-up"
+                style={{
+                    background: 'var(--ink, #1f1612)',
+                    padding: '8rem 2.5rem',
+                    position: 'relative',
+                    overflow: 'hidden',
+                    textAlign: 'center',
+                }}
+            >
+                {/* Atmospheric glows */}
+                <div
+                    style={{
+                        position: 'absolute',
+                        top: '-6rem',
+                        left: '-6rem',
+                        width: 400,
+                        height: 400,
+                        borderRadius: '50%',
+                        background: 'radial-gradient(circle, rgba(200,84,30,0.18) 0%, transparent 65%)',
+                        pointerEvents: 'none',
+                    }}
+                    aria-hidden="true"
+                />
+                <div
+                    style={{
+                        position: 'absolute',
+                        bottom: '-6rem',
+                        right: '-6rem',
+                        width: 350,
+                        height: 350,
+                        borderRadius: '50%',
+                        background: 'radial-gradient(circle, rgba(212,164,69,0.12) 0%, transparent 65%)',
+                        pointerEvents: 'none',
+                    }}
+                    aria-hidden="true"
+                />
+
+                <div style={{ maxWidth: 700, margin: '0 auto', position: 'relative', zIndex: 1 }}>
+                    <p
+                        style={{
+                            fontFamily: "'Inter', system-ui, sans-serif",
+                            fontWeight: 600,
+                            fontSize: '0.72rem',
+                            letterSpacing: '0.22em',
+                            textTransform: 'uppercase',
+                            color: 'var(--gold, #d4a445)',
+                            marginBottom: '1.25rem',
+                        }}
+                    >
+                        Begin the Work
                     </p>
-                  </div>
-                  <div>
-                    <p className="font-semibold">A – Awareness</p>
-                    <p>
-                      Becoming conscious of your emotions, triggers, patterns, and needs. Awareness is the beginning of clarity — and the gateway to transformation.
+                    <h2
+                        style={{
+                            fontFamily: "'Fraunces', Georgia, serif",
+                            fontWeight: 300,
+                            fontSize: 'clamp(2rem, 4.5vw, 3.5rem)',
+                            lineHeight: 1.1,
+                            color: 'var(--cream, #f5efe6)',
+                            marginBottom: '1.5rem',
+                        }}
+                    >
+                        It's time to stop carrying grief in{' '}
+                        <em style={{ fontStyle: 'italic', color: 'var(--gold, #d4a445)' }}>silence</em>
+                    </h2>
+                    <p
+                        style={{
+                            fontFamily: "'Fraunces', Georgia, serif",
+                            fontWeight: 400,
+                            fontSize: '1.1rem',
+                            color: 'rgba(245,239,230,0.75)',
+                            lineHeight: 1.65,
+                            marginBottom: '2.5rem',
+                            maxWidth: '50ch',
+                            margin: '0 auto 2.5rem',
+                        }}
+                    >
+                        Join the GRIEF Talk movement today and discover resources that help you release, heal, and move forward.
                     </p>
-                  </div>
-                  <div>
-                    <p className="font-semibold">L – Listening</p>
-                    <p>
-                      Hearing your own story, listening to others without judgment, and allowing emotions to speak without interruption. Listening makes healing communal instead of isolated.
-                    </p>
-                  </div>
-                  <div>
-                    <p className="font-semibold">K – Knowledge for Healing</p>
-                    <p>
-                      Applying wisdom, strategies, tools, and insights that move people toward restoration. Knowledge is the bridge that turns pain into progress.
-                    </p>
-                  </div>
+                    <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap' }}>
+                        <Link
+                            to="/contact"
+                            style={{
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                padding: '0.85rem 2.25rem',
+                                borderRadius: '999px',
+                                background: 'var(--ember, #c8541e)',
+                                color: '#f5efe6',
+                                fontFamily: "'Inter', system-ui, sans-serif",
+                                fontWeight: 600,
+                                fontSize: '0.95rem',
+                                letterSpacing: '0.02em',
+                                textDecoration: 'none',
+                                boxShadow: '0 6px 24px rgba(200,84,30,0.35)',
+                                transition: 'background 0.25s, box-shadow 0.25s',
+                            }}
+                            onMouseEnter={e => { e.currentTarget.style.background = 'var(--ember-deep, #a8421a)'; e.currentTarget.style.boxShadow = '0 8px 32px rgba(200,84,30,0.45)' }}
+                            onMouseLeave={e => { e.currentTarget.style.background = 'var(--ember, #c8541e)'; e.currentTarget.style.boxShadow = '0 6px 24px rgba(200,84,30,0.35)' }}
+                        >
+                            Start Your Healing Journey
+                        </Link>
+                        <Link
+                            to="/library"
+                            style={{
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                padding: '0.85rem 2.25rem',
+                                borderRadius: '999px',
+                                background: 'transparent',
+                                color: 'var(--cream, #f5efe6)',
+                                fontFamily: "'Inter', system-ui, sans-serif",
+                                fontWeight: 600,
+                                fontSize: '0.95rem',
+                                letterSpacing: '0.02em',
+                                textDecoration: 'none',
+                                border: '1.5px solid rgba(245,239,230,0.35)',
+                                transition: 'border-color 0.25s',
+                            }}
+                            onMouseEnter={e => (e.currentTarget.style.borderColor = 'rgba(245,239,230,0.7)')}
+                            onMouseLeave={e => (e.currentTarget.style.borderColor = 'rgba(245,239,230,0.35)')}
+                        >
+                            Browse the Library
+                        </Link>
+                        <Link
+                            to="/podcast"
+                            style={{
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                padding: '0.85rem 2.25rem',
+                                borderRadius: '999px',
+                                background: 'transparent',
+                                color: 'rgba(245,239,230,0.65)',
+                                fontFamily: "'Inter', system-ui, sans-serif",
+                                fontWeight: 600,
+                                fontSize: '0.95rem',
+                                letterSpacing: '0.02em',
+                                textDecoration: 'none',
+                                border: '1.5px solid rgba(245,239,230,0.2)',
+                                transition: 'border-color 0.25s, color 0.25s',
+                            }}
+                            onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(245,239,230,0.5)'; e.currentTarget.style.color = 'rgba(245,239,230,0.9)' }}
+                            onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(245,239,230,0.2)'; e.currentTarget.style.color = 'rgba(245,239,230,0.65)' }}
+                        >
+                            Subscribe to the Podcast
+                        </Link>
+                    </div>
                 </div>
-              </CardContent>
-            </Card>
+            </section>
 
-            <Card className="bg-card border-border card-elevated">
-              <CardContent className="p-6 space-y-4">
-                <div>
-                  <p className="text-xs font-semibold tracking-[0.3em] uppercase text-secondary mb-1">TRAUMA</p>
-                  <p className="text-sm text-muted-foreground mb-3">Triggered Pain • Responses • Avoidance • Unresolved Emotions • Memories • Acceptance, Awareness, and Action</p>
+            {/* ── Testimonial quote ── */}
+            <section
+                data-animate="fade-up"
+                className="testimonial-section"
+            style={{ background: 'var(--cream, #f5efe6)', padding: '5rem 2.5rem' }}
+            >
+                <div style={{ maxWidth: 720, margin: '0 auto', textAlign: 'center' }}>
+                    <p
+                        style={{
+                            fontFamily: "'Fraunces', Georgia, serif",
+                            fontStyle: 'italic',
+                            fontWeight: 300,
+                            fontSize: 'clamp(1.35rem, 2.8vw, 1.85rem)',
+                            lineHeight: 1.45,
+                            color: 'var(--ink, #1f1612)',
+                            marginBottom: '1rem',
+                        }}
+                    >
+                        "GRIEF Talk gave me permission to heal. Richard's words and resources helped me find closure I didn't know was possible."
+                    </p>
+                    <p
+                        style={{
+                            fontFamily: "'Inter', system-ui, sans-serif",
+                            fontSize: '0.82rem',
+                            fontWeight: 500,
+                            letterSpacing: '0.12em',
+                            textTransform: 'uppercase',
+                            color: 'var(--ink-soft, #3a2a22)',
+                            opacity: 0.65,
+                        }}
+                    >
+                        — Podcast Listener
+                    </p>
                 </div>
-                <div className="space-y-3 text-sm sm:text-base text-foreground leading-relaxed">
-                  <div>
-                    <p className="font-semibold">T – Triggered Pain</p>
-                    <p>
-                      The emotional flashpoints that reveal unresolved wounds or unprocessed experiences.
-                    </p>
-                  </div>
-                  <div>
-                    <p className="font-semibold">R – Responses Rooted in the Past</p>
-                    <p>
-                      Behaviors, reactions, fears, or protections that were formed during earlier painful events and still influence you today.
-                    </p>
-                  </div>
-                  <div>
-                    <p className="font-semibold">A – Avoidance or Adaptation</p>
-                    <p>
-                      The ways people cope — either by avoiding pain or adapting around it. Both are survival responses, not failures.
-                    </p>
-                  </div>
-                  <div>
-                    <p className="font-semibold">U – Unresolved Emotions</p>
-                    <p>
-                      Feelings that were buried, denied, or never safely expressed — but still impact the present.
-                    </p>
-                  </div>
-                  <div>
-                    <p className="font-semibold">M – Memories That Still Speak</p>
-                    <p>
-                      Experiences that continue to shape identity, choices, relationships, and self-worth, even years later.
-                    </p>
-                  </div>
-                  <div>
-                    <p className="font-semibold">A – Acceptance, Awareness, and Action</p>
-                    <p>
-                      The healing movement: accepting what happened, becoming aware of its impact, and taking active steps toward recovery, truth, and transformation.
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          <div className="text-center pt-2">
-            <p className="text-sm sm:text-base text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              Together, GRIEF Talk™ and this trauma framework position the movement as a place where grief becomes recovery, intervention becomes support, education becomes empowerment, and freedom becomes possible — through conversations grounded in truth, awareness, listening, and healing knowledge.
-            </p>
-          </div>
+            </section>
         </div>
-      </section>
-
-      <section data-animate="fade-up" className="py-12 sm:py-16 lg:py-20 bg-background/60">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
-          <div className="text-center space-y-4">
-            <span className="text-secondary uppercase tracking-[0.3em] text-xs">Coaching Intake</span>
-            <h2 className="text-3xl sm:text-4xl font-serif text-primary">GRIEF Talk™ Intake Process Overview</h2>
-            <p className="text-base sm:text-lg text-muted-foreground leading-relaxed max-w-4xl mx-auto">
-              Before beginning your 1:1 coaching journey, every client completes a required 45–60 minute Intake Session. This moment is not a coaching session and does not count toward package hours—it is a dedicated space where Coach B listens deeply, ensures emotional safety, and builds a personalized roadmap for your healing.
-            </p>
-          </div>
-
-          <div className="grid gap-6 lg:grid-cols-2">
-            {intakeHighlights.map(({ title, items }) => (
-              <Card key={title} className="bg-card border-border/70 hover:shadow-lg transition-shadow">
-                <CardContent className="p-6 sm:p-7 space-y-4">
-                  <h3 className="text-xl font-serif text-primary">{title}</h3>
-                  <ul className="space-y-3 text-sm sm:text-base text-muted-foreground leading-relaxed">
-                    {items.map((item) => (
-                      <li key={item} className="flex gap-3">
-                        <span className="mt-2 h-2 w-2 rounded-full bg-secondary" aria-hidden />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-
-          <div className="max-w-4xl mx-auto text-center space-y-4">
-            <p className="text-lg sm:text-xl font-serif text-primary">“This is the moment we lay the groundwork—not for perfection, but for progress. Not for quick fixes, but for transformation.”</p>
-            <p className="text-base text-muted-foreground">Your intake sets the tone for a six-month coaching journey rooted in clarity, trust, and sustainable healing.</p>
-            <div className="flex flex-col sm:flex-row justify-center gap-3">
-              <Link to="/contact" className="w-full sm:w-auto">
-                <Button size="lg" className="w-full bg-primary text-primary-foreground hover:bg-primary/90 px-8">
-                  Schedule Your Intake Session
-                </Button>
-              </Link>
-              <Button
-                size="lg"
-                variant="outline"
-                className="w-full sm:w-auto border-secondary text-secondary hover:bg-secondary hover:text-secondary-foreground"
-                onClick={onOpenAssessment}
-              >
-                Explore the GRIEF Talk™ Assessment
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section data-animate="fade-up" className="py-12 sm:py-16 lg:py-20 bg-gradient-to-br from-muted/40 via-background to-muted/30">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid gap-10 md:grid-cols-[1.2fr_1fr] md:items-center">
-          <div className="space-y-5">
-            <span className="text-secondary uppercase tracking-[0.3em] text-xs">Extra GRIEF Care</span>
-            <h2 className="text-3xl sm:text-4xl font-serif text-primary leading-tight">
-              Support for those carrying everyone else’s pain.
-            </h2>
-            <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
-              Operational Trauma™ shows up when helpers, leaders, and healers absorb the weight of another person’s crisis. This new self-assessment helps clergy, caregivers, medical professionals, first responders, educators, and service providers recognize hidden exhaustion before it turns into burnout or collapse.
-            </p>
-            <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
-              Explore extended GRIEF care resources, track your trauma load, and receive language you can use with your teams, congregations, and communities.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3 sm:items-center">
-              <Link to="/operational-trauma" className="w-full sm:w-auto">
-                <Button size="lg" className="w-full bg-secondary text-secondary-foreground hover:bg-secondary/90 px-8">
-                  Operational Trauma™ Assessment
-                </Button>
-              </Link>
-              {onOpenAssessment && (
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="w-full sm:w-auto border-secondary text-secondary hover:bg-secondary hover:text-secondary-foreground"
-                  onClick={onOpenAssessment}
-                >
-                  GRIEF Talk™ Assessment
-                </Button>
-              )}
-            </div>
-          </div>
-
-          <Card className="bg-card border-border/80 shadow-xl">
-            <CardContent className="p-6 sm:p-8 space-y-4">
-              <h3 className="text-xl font-serif text-primary">Inside the Tool</h3>
-              <ul className="space-y-3 text-sm sm:text-base text-muted-foreground leading-relaxed">
-                {[ 
-                  'Five domains measuring emotional, cognitive, behavioral, physical, and relational strain.',
-                  'Forty prompts with a simple 0–3 scale so you can assess progress over time.',
-                  'Instant interpretation with recommendations for pastoral care, coaching, or clinical support.'
-                ].map((item) => (
-                  <li key={item} className="flex items-start gap-2">
-                    <span className="mt-2 block h-2 w-2 rounded-full bg-secondary" aria-hidden />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-              <p className="text-sm text-muted-foreground/80">
-                Use it privately, with a supervisor, or as a reflective tool for your care team meetings.
-              </p>
-            </CardContent>
-          </Card>
-        </div>
-      </section>
-
-      <section data-animate="fade-up" className="py-12 sm:py-16 lg:py-20 bg-muted/40">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10 text-center">
-          <div className="space-y-3 sm:space-y-4">
-            <span className="text-secondary uppercase tracking-[0.3em] text-xs">What We Offer</span>
-            <p className="text-3xl font-serif text-primary">Tools for every step of your healing journey.</p>
-          </div>
-          <div className="grid gap-6 sm:gap-8 sm:grid-cols-2">
-            {offerings.map((item) => (
-              <Card key={item.title} className="bg-card border-border text-left">
-                <CardContent className="p-6 space-y-3">
-                  <div className="text-3xl" aria-hidden>{item.icon}</div>
-                  <h3 className="text-xl font-serif text-primary">{item.title}</h3>
-                  <p className="text-muted-foreground leading-relaxed">{item.description}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-          <Button size="lg" className="bg-secondary text-secondary-foreground hover:bg-secondary/90">
-            Explore Resources
-          </Button>
-        </div>
-      </section>
-
-      <section data-animate="fade-up" className="py-16 sm:py-20 lg:py-24 bg-muted/40">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
-          <div className="text-center space-y-4">
-            <span className="text-secondary uppercase tracking-[0.3em] text-xs">GRIEF Talk™ Coaching</span>
-            <h2 className="text-3xl sm:text-4xl font-serif text-primary">Our Promise: Where Silence Ends. Healing Begins. Truth Stands Unfiltered.</h2>
-            <p className="text-base sm:text-lg text-muted-foreground leading-relaxed max-w-4xl mx-auto">
-              Each coaching relationship is a sacred trust. We enter fully present, deeply compassionate, and wholly committed to your transformation. These promises are the standards we uphold every time we meet with you.
-            </p>
-          </div>
-
-          <div className="grid gap-6 lg:grid-cols-2">
-            {[
-              {
-                title: '1. We Promise to See You — Not Just Your Symptoms',
-                description: (
-                  <p>
-                    We honor your humanity, your history, and the hidden weight you have carried. There is no minimizing, no judgment, and no assumptions—only presence, empathy, and deep listening.
-                  </p>
-                )
-              },
-              {
-                title: '2. We Promise a Safe Space for Real, Raw, Honest Healing',
-                description: (
-                  <p>
-                    You never have to perform or pretend. Bring tears, questions, or silence. Your story, voice, and emotions remain safe here.
-                  </p>
-                )
-              },
-              {
-                title: '3. We Promise to Be Unfiltered',
-                description: (
-                  <p>
-                    Truth without pretense ignites healing. We speak with clarity, candor, and courage—challenging you lovingly, confronting patterns bravely, and calling you forward boldly.
-                  </p>
-                )
-              },
-              {
-                title: '4. We Promise Trauma-Informed Care',
-                description: (
-                  <p>
-                    We recognize the layers of trauma and grief. Our coaching honors safety, pacing, agency, and empowerment so your nervous system can heal without being overwhelmed.
-                  </p>
-                )
-              },
-              {
-                title: '5. We Promise Faith-Informed Compassion',
-                description: (
-                  <p>
-                    Expect a God-conscious lens that centers dignity, hope, and restoration—not religious pressure, but sacred grounding for your journey.
-                  </p>
-                )
-              },
-              {
-                title: '6. We Promise Confidentiality and Integrity',
-                description: (
-                  <p>
-                    Your story stays with us. Your privacy is protected. Every conversation is held with integrity and respect.
-                  </p>
-                )
-              },
-              {
-                title: '7. We Promise Transformation, Not Just Talk',
-                description: (
-                  <p>
-                    This is deep work. We move with you from pain to clarity, from confusion to direction, from broken pieces to a rebuilt identity.
-                  </p>
-                )
-              },
-              {
-                title: '8. We Promise Partnership, Not Performance',
-                description: (
-                  <p>
-                    We coach with you, not at you. Your pace, your goals, your agency. We guide while you lead your healing.
-                  </p>
-                )
-              },
-              {
-                title: '9. We Promise Accountability That Strengthens, Not Shames',
-                description: (
-                  <p>
-                    Accountability is an act of love. We remind you of your power, hold you to your transformation, and never break you to build you.
-                  </p>
-                )
-              },
-              {
-                title: '10. We Promise to Help You Become Whole — Not Perfect',
-                description: (
-                  <p>
-                    Healing is integration, honesty, and freedom. We walk with you until your grief has a place to rest and your future has room to breathe.
-                  </p>
-                )
-              }
-            ].map(({ title, description }) => (
-              <Card key={title} className="bg-card border-border/80 hover:shadow-lg transition-shadow">
-                <CardContent className="p-6 sm:p-7 space-y-3">
-                  <h3 className="text-lg font-serif text-primary">{title}</h3>
-                  <div className="text-sm sm:text-base text-muted-foreground leading-relaxed">{description}</div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-
-          <div className="text-center space-y-4">
-            <p className="text-lg sm:text-xl font-serif text-primary">“We do not rush your story, dismiss your pain, or dilute your truth. We walk with you—fully present, fully honest, fully committed.”</p>
-            <div className="flex flex-col sm:flex-row justify-center gap-3">
-              <Link to="/contact" className="w-full sm:w-auto">
-                <Button size="lg" className="w-full bg-secondary text-secondary-foreground hover:bg-secondary/90 px-8">
-                  Start Your Coaching Journey
-                </Button>
-              </Link>
-              <Link to="/operational-trauma" className="w-full sm:w-auto">
-                <Button size="lg" variant="outline" className="w-full border-primary text-primary hover:bg-primary hover:text-primary-foreground">
-                  Explore Operational Trauma™ Care
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section data-animate="fade-up" className="py-16 sm:py-20 lg:py-24 bg-gradient-to-b from-background via-muted/20 to-background">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-          <div className="text-center space-y-4">
-            <span className="text-secondary uppercase tracking-[0.3em] text-xs">GRIEF Talk™ Coaching Creed</span>
-            <h2 className="text-3xl sm:text-4xl font-serif text-primary">The Way We Walk With You</h2>
-            <p className="text-base sm:text-lg text-muted-foreground leading-relaxed max-w-3xl mx-auto">
-              Healing requires a space where truth has no filter and compassion has no limits. This creed anchors every session, every conversation, and every courageous step we take together.
-            </p>
-          </div>
-
-          <div className="grid gap-8 md:grid-cols-2">
-            <Card className="bg-card border-border/70 shadow-lg">
-              <CardContent className="p-6 sm:p-8 space-y-4">
-                <h3 className="text-xl font-serif text-primary">Our Daily Commitments</h3>
-                <ul className="space-y-3 text-sm sm:text-base text-muted-foreground leading-relaxed">
-                  {[
-                    'We show up.',
-                    'We stay present.',
-                    'We speak truth.',
-                    'We honor your pace.',
-                    'We protect your story.',
-                    'We champion your healing.',
-                    'We guide you from pain to purpose — one courageous step at a time.'
-                  ].map((item) => (
-                    <li key={item} className="flex gap-3">
-                      <span className="mt-2 h-2 w-2 rounded-full bg-secondary" aria-hidden />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-primary text-primary-foreground border-primary/40 shadow-xl">
-              <CardContent className="p-6 sm:p-8 space-y-5">
-                <h3 className="text-xl font-serif">Real. Raw. Restorative.</h3>
-                <p>
-                  We tell the truth with clarity — not cruelty. We speak the unsaid with care — not chaos. We address the roots, not just the symptoms. In our sessions, you will never be blindsided, silenced, or sugarcoated.
-                </p>
-                <p>
-                  We say the hard things with a soft heart because healing cannot happen where honesty is withheld. We stand with you, sit in the hard spaces with you, and walk with you until you can walk again.
-                </p>
-                <p className="text-sm uppercase tracking-[0.2em] text-secondary-foreground/90">This is the GRIEF Talk™ way.</p>
-              </CardContent>
-            </Card>
-          </div>
-
-          <div className="rounded-3xl border border-border/60 bg-card/80 shadow-lg p-8 sm:p-10 text-center space-y-4">
-            <p className="text-lg sm:text-xl font-serif text-primary">Unfiltered truth. Unconditional compassion. Transformation without apology.</p>
-            <p className="text-base text-muted-foreground max-w-3xl mx-auto">
-              This is our promise. This is our standard. This is the GRIEF Talk™ way.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section data-animate="fade-up" className="py-12 sm:py-16">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Card className="bg-card border-border">
-            <CardContent className="p-8 space-y-4 text-center">
-              <p className="text-2xl font-serif text-primary leading-relaxed">
-                “GRIEF Talk gave me permission to heal. Richard’s words and resources helped me find closure I didn’t know was possible.”
-              </p>
-              <p className="text-muted-foreground">— [Name], Podcast Listener</p>
-            </CardContent>
-          </Card>
-        </div>
-      </section>
-
-      <section data-animate="fade-up" className="py-16 sm:py-20 lg:py-24 bg-gradient-to-b from-background to-muted/30">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
-          <h2 className="text-4xl font-serif text-primary">It’s time to stop carrying grief in silence.</h2>
-          <p className="text-lg text-muted-foreground leading-relaxed">
-            Join the GRIEF Talk movement today and discover resources that help you release, heal, and move forward.
-          </p>
-          <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-4 items-center">
-            {onOpenAssessment && (
-              <div>
-                <Button
-                  size="lg"
-                  className="bg-secondary text-secondary-foreground hover:bg-secondary/90 px-8"
-                  onClick={onOpenAssessment}
-                >
-                  Take the GRIEF Talk™ &amp; Trauma Assessment
-                </Button>
-              </div>
-            )}
-            <Link to="/library" className="w-full sm:w-auto max-w-xs sm:max-w-none">
-              <Button size="lg" className="w-full bg-primary text-primary-foreground hover:bg-primary/90">
-                Purchase Your Copy of Closure
-              </Button>
-            </Link>
-            <div className="w-full sm:w-auto max-w-xs sm:max-w-none">
-              <Button
-                size="lg"
-                variant="outline"
-                className="w-full border-secondary text-secondary hover:bg-secondary hover:text-secondary-foreground"
-                onClick={() => window.open(academyUrl, '_blank')}
-              >
-                Join the Academy
-              </Button>
-            </div>
-            <div className="w-full sm:w-auto max-w-xs sm:max-w-none">
-              <Button
-                size="lg"
-                variant="ghost"
-                className="w-full text-primary hover:text-primary/80"
-                onClick={() => window.open(podcastUrl, '_blank')}
-              >
-                Subscribe to the Podcast
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-  )
+    )
 }

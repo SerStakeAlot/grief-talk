@@ -1,84 +1,201 @@
-import { Flame } from '@phosphor-icons/react'
 import { Link } from 'react-router-dom'
+
+const FOOTER_BG = '#14100d'
+const GOLD = '#d4a445'
+const CREAM = '#f5efe6'
+const EMBER = '#c8541e'
+const MUTED = 'rgba(245,239,230,0.55)'
 
 export function Footer() {
     const currentYear = new Date().getFullYear()
 
+    const explore = [
+        { label: 'About', path: '/about' },
+        { label: 'Podcast', path: '/podcast' },
+        { label: 'Library', path: '/library' },
+        { label: 'Operational Trauma', path: '/operational-trauma' },
+    ]
+
+    const services = [
+        'Grief Recovery Coaching',
+        'Trauma-Informed Support',
+        'Death Doula Services',
+        'Speaking Engagements',
+        'GRIEF in Action Academy',
+    ]
+
+    const connect = [
+        { label: 'Contact', path: '/contact' },
+        { label: 'grieftalkpodcast1@gmail.com', href: 'mailto:grieftalkpodcast1@gmail.com' },
+    ]
+
     return (
-        <footer className="bg-primary text-primary-foreground py-12">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="grid md:grid-cols-3 gap-8 mb-8 text-center md:text-left">
-                    <div className="flex flex-col items-center md:items-start">
-                        <div className="flex items-center gap-2 mb-4">
-                            <Flame size={32} weight="fill" className="text-secondary" />
-                            <span className="text-2xl font-serif font-bold">GRIEF Talk</span>
+        <footer style={{ background: FOOTER_BG, padding: '5rem 2.5rem 2rem', color: CREAM }}>
+            <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+                {/* 4-column grid */}
+                <div
+                    style={{
+                        display: 'grid',
+                        gridTemplateColumns: 'repeat(4, 1fr)',
+                        gap: '3rem',
+                        marginBottom: '3.5rem',
+                    }}
+                    className="footer-grid"
+                >
+                    {/* Col 1 — Brand + tagline */}
+                    <div style={{ gridColumn: 'span 1' }}>
+                        {/* Small flame SVG */}
+                        <div style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                            <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2C12 2 7 7.5 7 13a5 5 0 0010 0C17 7.5 12 2 12 2z" fill={EMBER}/>
+                                <path d="M12 8C12 8 9.5 11 9.5 13.5a2.5 2.5 0 005 0C14.5 11 12 8 12 8z" fill={GOLD}/>
+                            </svg>
+                            <span style={{ fontFamily: "'Fraunces', Georgia, serif", fontSize: '1.35rem', fontWeight: 500, color: CREAM }}>
+                                GRIEF Talk
+                            </span>
                         </div>
-                        <p className="text-primary-foreground/80 leading-relaxed">
-                            Where the Silence Ends and Healing Begins
+                        <p style={{ color: MUTED, fontSize: '0.92rem', lineHeight: 1.6, maxWidth: '18em' }}>
+                            A movement equipping individuals, families, and communities with tools for grief, trauma, faith, and healing.
                         </p>
                     </div>
 
-                    <div className="flex flex-col items-center md:items-start">
-                        <h3 className="font-serif font-semibold text-lg mb-4 uppercase tracking-[0.2em] text-amber-300">
-                            Quick Links
-                        </h3>
-                        <ul className="space-y-3 text-base">
-                            <li>
-                                <Link
-                                    to="/about"
-                                    className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white text-primary font-semibold shadow-md hover:bg-amber-100 hover:text-primary transition-colors"
-                                >
-                                    <span className="h-1.5 w-1.5 rounded-full bg-secondary" />
-                                    About
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
-                                    to="/library"
-                                    className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white text-primary font-semibold shadow-md hover:bg-amber-100 hover:text-primary transition-colors"
-                                >
-                                    <span className="h-1.5 w-1.5 rounded-full bg-secondary" />
-                                    Library
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
-                                    to="/operational-trauma"
-                                    className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white text-primary font-semibold shadow-md hover:bg-amber-100 hover:text-primary transition-colors"
-                                >
-                                    <span className="h-1.5 w-1.5 rounded-full bg-secondary" />
-                                    Operational Trauma Tool
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
-                                    to="/contact"
-                                    className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white text-primary font-semibold shadow-md hover:bg-amber-100 hover:text-primary transition-colors"
-                                >
-                                    <span className="h-1.5 w-1.5 rounded-full bg-secondary" />
-                                    Contact
-                                </Link>
-                            </li>
+                    {/* Col 2 — Explore */}
+                    <div>
+                        <h4 style={{
+                            fontFamily: "'Inter', system-ui, sans-serif",
+                            fontWeight: 600,
+                            fontSize: '0.72rem',
+                            letterSpacing: '0.15em',
+                            textTransform: 'uppercase',
+                            color: GOLD,
+                            marginBottom: '1.25rem',
+                        }}>
+                            Explore
+                        </h4>
+                        <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
+                            {explore.map(item => (
+                                <li key={item.path}>
+                                    <Link
+                                        to={item.path}
+                                        style={{
+                                            color: MUTED,
+                                            textDecoration: 'none',
+                                            fontSize: '0.92rem',
+                                            fontFamily: "'Inter', system-ui, sans-serif",
+                                            transition: 'color 0.2s',
+                                        }}
+                                        onMouseEnter={e => (e.currentTarget.style.color = EMBER)}
+                                        onMouseLeave={e => (e.currentTarget.style.color = MUTED)}
+                                    >
+                                        {item.label}
+                                    </Link>
+                                </li>
+                            ))}
                         </ul>
                     </div>
 
-                    <div className="flex flex-col items-center md:items-start">
-                        <h3 className="font-serif font-semibold text-lg mb-4">Services</h3>
-                        <ul className="space-y-2 text-primary-foreground/80">
-                            <li>Grief Recovery Coaching</li>
-                            <li>Trauma-Informed Support</li>
-                            <li>Death Doula Services</li>
-                            <li>Speaking Engagements</li>
+                    {/* Col 3 — Services */}
+                    <div>
+                        <h4 style={{
+                            fontFamily: "'Inter', system-ui, sans-serif",
+                            fontWeight: 600,
+                            fontSize: '0.72rem',
+                            letterSpacing: '0.15em',
+                            textTransform: 'uppercase',
+                            color: GOLD,
+                            marginBottom: '1.25rem',
+                        }}>
+                            Services
+                        </h4>
+                        <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
+                            {services.map(s => (
+                                <li key={s} style={{ color: MUTED, fontSize: '0.92rem', fontFamily: "'Inter', system-ui, sans-serif" }}>{s}</li>
+                            ))}
+                        </ul>
+                    </div>
+
+                    {/* Col 4 — Connect */}
+                    <div>
+                        <h4 style={{
+                            fontFamily: "'Inter', system-ui, sans-serif",
+                            fontWeight: 600,
+                            fontSize: '0.72rem',
+                            letterSpacing: '0.15em',
+                            textTransform: 'uppercase',
+                            color: GOLD,
+                            marginBottom: '1.25rem',
+                        }}>
+                            Connect
+                        </h4>
+                        <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
+                            {connect.map(item => (
+                                <li key={item.label}>
+                                    {'path' in item ? (
+                                        <Link
+                                            to={(item as { path: string; label: string }).path}
+                                            style={{ color: MUTED, textDecoration: 'none', fontSize: '0.92rem', fontFamily: "'Inter', system-ui, sans-serif", transition: 'color 0.2s' }}
+                                            onMouseEnter={e => (e.currentTarget.style.color = EMBER)}
+                                            onMouseLeave={e => (e.currentTarget.style.color = MUTED)}
+                                        >
+                                            {item.label}
+                                        </Link>
+                                    ) : (
+                                        <a
+                                            href={(item as { href: string; label: string }).href}
+                                            style={{ color: MUTED, textDecoration: 'none', fontSize: '0.92rem', fontFamily: "'Inter', system-ui, sans-serif", transition: 'color 0.2s' }}
+                                            onMouseEnter={e => (e.currentTarget.style.color = EMBER)}
+                                            onMouseLeave={e => (e.currentTarget.style.color = MUTED)}
+                                        >
+                                            {item.label}
+                                        </a>
+                                    )}
+                                </li>
+                            ))}
                         </ul>
                     </div>
                 </div>
 
-                <div className="border-t border-primary-foreground/20 pt-8 text-center">
-                    <p className="text-primary-foreground/80">
+                {/* Bottom strip */}
+                <div style={{
+                    borderTop: '1px solid rgba(245,239,230,0.1)',
+                    paddingTop: '1.5rem',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    flexWrap: 'wrap',
+                    gap: '0.75rem',
+                }}>
+                    <p style={{ color: MUTED, fontSize: '0.82rem', fontFamily: "'Inter', system-ui, sans-serif" }}>
                         © {currentYear} GRIEF Talk by Richard Brown III. All rights reserved.
+                    </p>
+                    <p style={{
+                        color: MUTED,
+                        fontSize: '0.92rem',
+                        fontFamily: "'Fraunces', Georgia, serif",
+                        fontStyle: 'italic',
+                        fontWeight: 300,
+                    }}>
+                        You don't have to heal in silence.
                     </p>
                 </div>
             </div>
+
+            {/* Responsive: 2×2 grid below 960px */}
+            <style>{`
+                .footer-grid {
+                    grid-template-columns: repeat(4, 1fr);
+                }
+                @media (max-width: 960px) {
+                    .footer-grid {
+                        grid-template-columns: repeat(2, 1fr) !important;
+                    }
+                }
+                @media (max-width: 480px) {
+                    .footer-grid {
+                        grid-template-columns: 1fr !important;
+                    }
+                }
+            `}</style>
         </footer>
     )
 }

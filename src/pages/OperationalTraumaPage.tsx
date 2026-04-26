@@ -1,3 +1,4 @@
+import { SubPageHero } from '@/components/SubPageHero'
 import { useMemo, useState, type FormEvent } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -122,13 +123,15 @@ export function OperationalTraumaPage() {
     }
 
     return (
-        <div data-animate="fade-up" className="bg-background py-16 sm:py-20 lg:py-24">
-            <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+        <div>
+            <SubPageHero
+                eyebrow="Assessment Tool"
+                title={<>Operational <em style={{ fontStyle: 'italic', color: 'var(--ember-deep, #a8421a)' }}>Trauma™</em> Self-Assessment</>}
+                subtitle="Locate yourself on the Operational Trauma™ scale — for those who carry the weight of others' pain."
+            />
+            <div data-animate="fade-up" style={{ background: 'var(--cream, #f5efe6)', padding: '5rem 2.5rem' }}>
+            <div className="max-w-5xl mx-auto space-y-10">
                 <div className="text-center space-y-4">
-                    <p className="text-xs uppercase tracking-[0.35em] text-secondary">Assessment</p>
-                    <h1 className="text-4xl sm:text-5xl font-serif font-bold text-primary">
-                        Operational Trauma™ Self-Assessment Tool
-                    </h1>
                     <p className="text-base sm:text-lg text-muted-foreground leading-relaxed max-w-3xl mx-auto">
                         Operational Trauma™ is the hidden grief, emotional exhaustion, and identity strain experienced by those who carry the weight of others — pastors, caregivers, medical professionals, funeral directors, educators, social workers, and anyone serving on the front lines of healing. Use this assessment to locate yourself on the Operational Trauma™ scale.
                     </p>
@@ -208,6 +211,7 @@ export function OperationalTraumaPage() {
                         )}
                     </CardContent>
                 </Card>
+            </div>
             </div>
         </div>
     )

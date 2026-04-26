@@ -84,7 +84,7 @@ function App() {
                 mobileMenuOpen={mobileMenuOpen}
                 setMobileMenuOpen={setMobileMenuOpen}
             />
-            <div className="flex-grow pt-16">
+            <div className="flex-grow">
                 <Routes>
                     <Route path="/" element={<Home onOpenAssessment={() => setAssessmentOpen(true)} />} />
                     <Route path="/about" element={<AboutPage />} />

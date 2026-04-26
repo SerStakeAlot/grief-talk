@@ -1,3 +1,4 @@
+import { SubPageHero } from '@/components/SubPageHero'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -22,38 +23,21 @@ export function PodcastPage() {
   useEffect(() => {
     const fetchPodcastFeed = async () => {
       try {
-        // Using a CORS proxy to fetch the RSS feed
         const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(rssFeedUrl)}`
         const response = await fetch(proxyUrl)
         const data = await response.json()
-        
-        // Parse the RSS XML
         const parser = new DOMParser()
         const xml = parser.parseFromString(data.contents, 'text/xml')
         const items = xml.querySelectorAll('item')
-        
-        const parsedEpisodes: Episode[] = Array.from(items).map((item, index) => {
-          const title = item.querySelector('title')?.textContent || 'Untitled Episode'
-          const description = item.querySelector('description')?.textContent || ''
-          const pubDate = item.querySelector('pubDate')?.textContent || ''
-          const audioUrl = item.querySelector('enclosure')?.getAttribute('url') || ''
-          const duration = item.querySelector('duration')?.textContent || ''
-          
-          return {
-            id: `episode-${index}`,
-            title,
-            description: description.replace(/<[^>]*>/g, ''), // Strip HTML tags
-            pubDate: new Date(pubDate).toLocaleDateString('en-US', { 
-              year: 'numeric', 
-              month: 'long', 
-              day: 'numeric' 
-            }),
-            duration,
-            audioUrl,
-            episodeNumber: items.length - index
-          }
-        })
-        
+        const parsedEpisodes: Episode[] = Array.from(items).map((item, index) => ({
+          id: `episode-${index}`,
+          title: item.querySelector('title')?.textContent || 'Untitled Episode',
+          description: (item.querySelector('description')?.textContent || '').replace(/<[^>]*>/g, ''),
+          pubDate: new Date(item.querySelector('pubDate')?.textContent || '').toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
+          duration: item.querySelector('duration')?.textContent || '',
+          audioUrl: item.querySelector('enclosure')?.getAttribute('url') || '',
+          episodeNumber: items.length - index,
+        }))
         setEpisodes(parsedEpisodes)
       } catch (error) {
         console.error('Error fetching podcast feed:', error)
@@ -61,68 +45,56 @@ export function PodcastPage() {
         setLoading(false)
       }
     }
-
     fetchPodcastFeed()
   }, [])
 
   const applePodcastsUrl = 'https://podcasts.apple.com/us/podcast/grief-talk-unfiltered/id1865849991'
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Hero Section */}
-      <section 
-        data-animate="fade-up" 
-        className="py-20 sm:py-24 lg:py-28 bg-gradient-to-b from-muted/30 via-background to-background"
-      >
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
-          <div className="inline-flex items-center gap-2 text-secondary justify-center">
-            <Microphone size={32} weight="duotone" />
-            <span className="uppercase tracking-[0.3em] text-xs">GRIEF Talk Podcast</span>
-          </div>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-primary">
-            Where the Silence Ends and Healing Begins
-          </h1>
-          <div className="w-24 h-1 bg-secondary mx-auto"></div>
-          <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Raw, real conversations about grief, trauma, and healing. Join Richard Brown III as he guides you through 
-            trauma-informed, faith-rooted resources to help you move from pain to purpose.
-          </p>
+    <div style={{ background: 'var(--cream, #f5efe6)', minHeight: '100vh' }}>
+      <SubPageHero
+        eyebrow="GRIEF Talk Podcast"
+        title={<>Where the silence ends and <em style={{ fontStyle: 'italic', color: 'var(--ember-deep, #a8421a)' }}>healing</em> begins</>}
+        subtitle="Raw, real conversations about grief, trauma, and healing. Join Richard Brown III as he guides you from pain to purpose."
+      />
 
-          {/* Platform Buttons */}
-          <div className="flex flex-wrap justify-center gap-4 pt-6">
-            <Button 
-              size="lg" 
-              className="bg-primary hover:bg-primary/90 text-primary-foreground gap-2"
-              onClick={() => window.open(applePodcastsUrl, '_blank')}
-            >
-              <Microphone size={24} weight="fill" />
-              Apple Podcasts
-            </Button>
-          </div>
+      {/* Platform CTA */}
+      <section style={{ padding: '3rem 2.5rem', textAlign: 'center', background: 'var(--paper, #faf6ee)' }}>
+        <div style={{ maxWidth: 600, margin: '0 auto' }}>
+          <Button
+            size="lg"
+            style={{ borderRadius: '999px', background: 'var(--ink, #1f1612)', color: 'var(--cream, #f5efe6)', gap: '0.5rem' }}
+            onClick={() => window.open(applePodcastsUrl, '_blank')}
+          >
+            <Microphone size={20} weight="fill" />
+            Listen on Apple Podcasts
+          </Button>
         </div>
       </section>
 
-      {/* Buzzsprout Embed Player */}
-      <section data-animate="fade-up" className="py-12 bg-muted/20">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Card className="bg-card border-border overflow-hidden">
-            <CardHeader className="text-center space-y-2">
-              <CardTitle className="text-2xl font-serif text-primary">Listen Now</CardTitle>
-              <p className="text-muted-foreground text-sm">
+      {/* Buzzsprout embed */}
+      <section data-animate="fade-up" style={{ padding: '3rem 2.5rem', background: 'var(--cream, #f5efe6)' }}>
+        <div style={{ maxWidth: 900, margin: '0 auto' }}>
+          <Card style={{ background: 'var(--paper, #faf6ee)', border: '1px solid rgba(31,22,18,0.12)', borderRadius: 20, overflow: 'hidden' }}>
+            <CardHeader style={{ textAlign: 'center' }}>
+              <CardTitle style={{ fontFamily: "'Fraunces', Georgia, serif", fontWeight: 300, fontSize: '1.75rem', color: 'var(--ink, #1f1612)' }}>
+                Listen Now
+              </CardTitle>
+              <p style={{ fontFamily: "'Inter', system-ui, sans-serif", fontSize: '0.9rem', color: 'var(--ink-soft, #3a2a22)', opacity: 0.7 }}>
                 Stream episodes directly from this page
               </p>
             </CardHeader>
-            <CardContent className="p-0">
-              <div className="aspect-[16/9] sm:aspect-[21/9]">
-                <iframe 
-                  src="https://www.buzzsprout.com/2515323?client_source=small_player&iframe=true&referrer=https://www.buzzsprout.com/2515323.js?container_id=buzzsprout-player-2515323&player=small" 
-                  loading="lazy" 
-                  width="100%" 
+            <CardContent style={{ padding: 0 }}>
+              <div style={{ aspectRatio: '21/9' }}>
+                <iframe
+                  src="https://www.buzzsprout.com/2515323?client_source=small_player&iframe=true&referrer=https://www.buzzsprout.com/2515323.js?container_id=buzzsprout-player-2515323&player=small"
+                  loading="lazy"
+                  width="100%"
                   height="100%"
-                  frameBorder="0" 
-                  scrolling="no" 
+                  frameBorder="0"
+                  scrolling="no"
                   title="GRIEF Talk Podcast"
-                  className="w-full h-full"
+                  style={{ width: '100%', height: '100%' }}
                 />
               </div>
             </CardContent>
@@ -130,64 +102,86 @@ export function PodcastPage() {
         </div>
       </section>
 
-      {/* Episodes List */}
-      <section data-animate="fade-up" className="py-16 sm:py-20">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-          <div className="text-center space-y-2">
-            <h2 className="text-3xl sm:text-4xl font-serif text-primary">Episodes</h2>
-            <p className="text-muted-foreground">
-              Explore our collection of healing conversations
-            </p>
+      {/* Episodes list */}
+      <section data-animate="fade-up" style={{ padding: '5rem 2.5rem' }}>
+        <div style={{ maxWidth: 900, margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+            <p className="eyebrow" style={{ marginBottom: '0.5rem' }}>All Episodes</p>
+            <h2 style={{ fontFamily: "'Fraunces', Georgia, serif", fontWeight: 300, fontSize: 'clamp(1.75rem, 3.5vw, 2.5rem)', color: 'var(--ink, #1f1612)' }}>
+              Healing conversations
+            </h2>
           </div>
 
           {loading ? (
-            <div className="text-center py-12">
-              <p className="text-muted-foreground">Loading episodes...</p>
-            </div>
+            <p style={{ textAlign: 'center', color: 'var(--ink-soft, #3a2a22)', opacity: 0.6, fontFamily: "'Fraunces', Georgia, serif", fontStyle: 'italic' }}>
+              Loading episodes…
+            </p>
           ) : episodes.length === 0 ? (
-            <Card className="bg-card border-border">
-              <CardContent className="p-10 text-center space-y-3">
-                <Microphone size={32} className="text-muted-foreground mx-auto" />
-                <p className="text-muted-foreground">
-                  Episodes will appear here. Check back soon or subscribe on your favorite platform.
+            <Card style={{ background: 'var(--paper, #faf6ee)', border: '1px solid rgba(31,22,18,0.1)', borderRadius: 20 }}>
+              <CardContent style={{ padding: '3rem', textAlign: 'center' }}>
+                <Microphone size={32} style={{ color: 'var(--ink-soft, #3a2a22)', opacity: 0.35, margin: '0 auto 1rem' }} />
+                <p style={{ fontFamily: "'Fraunces', Georgia, serif", fontStyle: 'italic', color: 'var(--ink-soft, #3a2a22)' }}>
+                  Episodes will appear here. Check back soon or subscribe on your favourite platform.
                 </p>
               </CardContent>
             </Card>
           ) : (
-            <div className="space-y-4">
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
               {episodes.map((episode) => (
-                <Card key={episode.id} className="bg-card border-border hover:border-secondary/50 transition-colors">
+                <Card
+                  key={episode.id}
+                  style={{
+                    background: 'var(--paper, #faf6ee)',
+                    border: '1px solid rgba(31,22,18,0.1)',
+                    borderRadius: 20,
+                    transition: 'box-shadow 0.25s, border-color 0.25s',
+                  }}
+                  className="intake-card"
+                >
                   <CardHeader>
-                    <div className="flex items-start justify-between gap-4">
-                      <div className="flex-1 space-y-2">
-                        <div className="flex items-center gap-2 flex-wrap">
+                    <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '1rem' }}>
+                      <div style={{ flex: 1 }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '0.5rem' }}>
                           {episode.episodeNumber && (
-                            <Badge variant="secondary" className="text-xs">
-                              Episode {episode.episodeNumber}
+                            <Badge variant="secondary" style={{ background: 'rgba(200,84,30,0.1)', color: 'var(--ember, #c8541e)', border: 'none', fontSize: '0.72rem', letterSpacing: '0.05em' }}>
+                              Ep. {episode.episodeNumber}
                             </Badge>
                           )}
-                          <span className="text-xs text-muted-foreground">{episode.pubDate}</span>
-                          {episode.duration && (
-                            <span className="text-xs text-muted-foreground">• {episode.duration}</span>
-                          )}
+                          <span style={{ fontFamily: "'Inter', system-ui, sans-serif", fontSize: '0.8rem', color: 'var(--ink-soft, #3a2a22)', opacity: 0.6 }}>{episode.pubDate}</span>
+                          {episode.duration && <span style={{ fontFamily: "'Inter', system-ui, sans-serif", fontSize: '0.8rem', color: 'var(--ink-soft, #3a2a22)', opacity: 0.6 }}>· {episode.duration}</span>}
                         </div>
-                        <CardTitle className="text-xl font-serif text-primary leading-snug">
+                        <CardTitle style={{ fontFamily: "'Fraunces', Georgia, serif", fontWeight: 400, fontSize: '1.15rem', color: 'var(--ink, #1f1612)', lineHeight: 1.35 }}>
                           {episode.title}
                         </CardTitle>
                       </div>
                       {episode.audioUrl && (
-                        <Button 
-                          size="icon" 
-                          className="bg-secondary hover:bg-secondary/90 text-secondary-foreground shrink-0"
+                        <button
+                          style={{
+                            width: 40,
+                            height: 40,
+                            borderRadius: '50%',
+                            background: 'var(--ember, #c8541e)',
+                            border: 'none',
+                            cursor: 'pointer',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            color: '#f5efe6',
+                            flexShrink: 0,
+                            transition: 'background 0.2s',
+                          }}
                           onClick={() => window.open(episode.audioUrl, '_blank')}
+                          aria-label={`Play ${episode.title}`}
+                          onMouseEnter={e => (e.currentTarget.style.background = 'var(--ember-deep, #a8421a)')}
+                          onMouseLeave={e => (e.currentTarget.style.background = 'var(--ember, #c8541e)')}
                         >
-                          <Play size={20} weight="fill" />
-                        </Button>
+                          <Play size={18} weight="fill" aria-hidden />
+                        </button>
                       )}
                     </div>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-muted-foreground text-sm leading-relaxed line-clamp-3">
+                    <p style={{ fontFamily: "'Inter', system-ui, sans-serif", fontSize: '0.9rem', color: 'var(--ink-soft, #3a2a22)', lineHeight: 1.6, display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
                       {episode.description}
                     </p>
                   </CardContent>
@@ -199,22 +193,20 @@ export function PodcastPage() {
       </section>
 
       {/* Subscribe CTA */}
-      <section data-animate="fade-up" className="py-16 bg-gradient-to-b from-background to-muted/30">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
-          <h3 className="text-3xl font-serif text-primary">Never Miss an Episode</h3>
-          <p className="text-lg text-muted-foreground">
-            Subscribe on your favorite podcast platform to get notified when new episodes are released.
-          </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <Button 
-              size="lg" 
-              className="bg-primary hover:bg-primary/90 text-primary-foreground gap-2"
-              onClick={() => window.open(applePodcastsUrl, '_blank')}
-            >
-              <Microphone size={24} weight="fill" />
-              Subscribe on Apple Podcasts
-            </Button>
-          </div>
+      <section data-animate="fade-up" style={{ padding: '5rem 2.5rem', background: 'var(--ink, #1f1612)', textAlign: 'center' }}>
+        <div style={{ maxWidth: 600, margin: '0 auto' }}>
+          <p className="eyebrow" style={{ color: 'var(--gold, #d4a445)', marginBottom: '1rem' }}>Never Miss an Episode</p>
+          <h3 style={{ fontFamily: "'Fraunces', Georgia, serif", fontWeight: 300, fontSize: 'clamp(1.75rem, 3.5vw, 2.5rem)', color: 'var(--cream, #f5efe6)', marginBottom: '1.5rem', lineHeight: 1.15 }}>
+            Subscribe and <em style={{ fontStyle: 'italic', color: 'var(--gold, #d4a445)' }}>stay connected</em>
+          </h3>
+          <Button
+            size="lg"
+            style={{ borderRadius: '999px', background: 'var(--ember, #c8541e)', color: '#f5efe6', gap: '0.5rem', boxShadow: '0 6px 24px rgba(200,84,30,0.35)' }}
+            onClick={() => window.open(applePodcastsUrl, '_blank')}
+          >
+            <Microphone size={20} weight="fill" />
+            Subscribe on Apple Podcasts
+          </Button>
         </div>
       </section>
     </div>
