@@ -23,18 +23,28 @@ export function PodcastPage() {
   useEffect(() => {
     const fetchPodcastFeed = async () => {
       try {
-        const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(rssFeedUrl)}`
-        const response = await fetch(proxyUrl)
-        const data = await response.json()
+        let xmlText: string
+
+        // Try direct fetch first — Buzzsprout sends CORS headers
+        try {
+          const res = await fetch(rssFeedUrl)
+          if (!res.ok) throw new Error('direct fetch failed')
+          xmlText = await res.text()
+        } catch {
+          // Fall back to corsproxy.io
+          const res = await fetch(`https://corsproxy.io/?${encodeURIComponent(rssFeedUrl)}`)
+          xmlText = await res.text()
+        }
+
         const parser = new DOMParser()
-        const xml = parser.parseFromString(data.contents, 'text/xml')
+        const xml = parser.parseFromString(xmlText, 'text/xml')
         const items = xml.querySelectorAll('item')
         const parsedEpisodes: Episode[] = Array.from(items).map((item, index) => ({
           id: `episode-${index}`,
           title: item.querySelector('title')?.textContent || 'Untitled Episode',
           description: (item.querySelector('description')?.textContent || '').replace(/<[^>]*>/g, ''),
           pubDate: new Date(item.querySelector('pubDate')?.textContent || '').toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
-          duration: item.querySelector('duration')?.textContent || '',
+          duration: item.getElementsByTagName('itunes:duration')[0]?.textContent || '',
           audioUrl: item.querySelector('enclosure')?.getAttribute('url') || '',
           episodeNumber: items.length - index,
         }))
@@ -117,14 +127,63 @@ export function PodcastPage() {
               Loading episodes…
             </p>
           ) : episodes.length === 0 ? (
-            <Card style={{ background: 'var(--paper, #faf6ee)', border: '1px solid rgba(31,22,18,0.1)', borderRadius: 20 }}>
-              <CardContent style={{ padding: '3rem', textAlign: 'center' }}>
-                <Microphone size={32} style={{ color: 'var(--ink-soft, #3a2a22)', opacity: 0.35, margin: '0 auto 1rem' }} />
-                <p style={{ fontFamily: "'Fraunces', Georgia, serif", fontStyle: 'italic', color: 'var(--ink-soft, #3a2a22)' }}>
-                  Episodes will appear here. Check back soon or subscribe on your favourite platform.
-                </p>
-              </CardContent>
-            </Card>
+            <div style={{ textAlign: 'center', padding: '3rem 1.5rem' }}>
+              <div style={{
+                width: 64,
+                height: 64,
+                borderRadius: '50%',
+                background: 'rgba(200,84,30,0.1)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                margin: '0 auto 1.5rem',
+              }}>
+                <Microphone size={28} style={{ color: 'var(--ember, #c8541e)' }} weight="fill" />
+              </div>
+              <h3 style={{
+                fontFamily: "'Fraunces', Georgia, serif",
+                fontWeight: 300,
+                fontSize: 'clamp(1.4rem, 3vw, 1.85rem)',
+                color: 'var(--ink, #1f1612)',
+                marginBottom: '0.75rem',
+              }}>
+                Episodes dropping <em style={{ fontStyle: 'italic', color: 'var(--ember-deep, #a8421a)' }}>soon</em>
+              </h3>
+              <p style={{
+                fontFamily: "'Inter', system-ui, sans-serif",
+                fontSize: '0.95rem',
+                color: 'var(--ink-soft, #3a2a22)',
+                opacity: 0.7,
+                maxWidth: '38ch',
+                margin: '0 auto 2rem',
+                lineHeight: 1.6,
+              }}>
+                Subscribe on Apple Podcasts to be the first notified when Richard drops a new episode.
+              </p>
+              <button
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  padding: '0.85rem 2rem',
+                  borderRadius: '999px',
+                  background: 'var(--ink, #1f1612)',
+                  color: 'var(--cream, #f5efe6)',
+                  fontFamily: "'Inter', system-ui, sans-serif",
+                  fontWeight: 600,
+                  fontSize: '0.95rem',
+                  border: 'none',
+                  cursor: 'pointer',
+                  transition: 'background 0.25s',
+                }}
+                onClick={() => window.open(applePodcastsUrl, '_blank')}
+                onMouseEnter={e => (e.currentTarget.style.background = 'var(--ember, #c8541e)')}
+                onMouseLeave={e => (e.currentTarget.style.background = 'var(--ink, #1f1612)')}
+              >
+                <Microphone size={18} weight="fill" />
+                Subscribe on Apple Podcasts
+              </button>
+            </div>
           ) : (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
               {episodes.map((episode) => (

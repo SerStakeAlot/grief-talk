@@ -181,6 +181,9 @@ a:focus-visible {
 .scroll-indicator-line {
   animation: scrollPulse 2s ease-in-out infinite;
 }
+.scroll-logo-pulse {
+  animation: softGlow 3s ease-in-out infinite;
+}
 
 /* Pulsing dot (new episode indicator) */
 @keyframes dotPulse {

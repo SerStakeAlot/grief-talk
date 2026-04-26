@@ -1,56 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import richardPortrait from '@/assets/images/richard-brown.jpg'
-
-/** Full-podcast seal SVG — 240×240 per spec */
-function PodcastSeal() {
-    return (
-        <svg
-            width="220"
-            height="220"
-            viewBox="0 0 220 220"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-        >
-            <defs>
-                <linearGradient id="flameGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" stopColor="#c8541e" />
-                    <stop offset="100%" stopColor="#d4a445" />
-                </linearGradient>
-                <path id="topArc" d="M 110,110 m -80,0 a 80,80 0 1,1 160,0" />
-                <path id="botArc" d="M 110,110 m -75,0 a 75,75 0 0,0 150,0" />
-            </defs>
-
-            {/* Outer ember ring */}
-            <circle cx="110" cy="110" r="106" fill="none" stroke="#c8541e" strokeWidth="3" />
-            {/* Inner gold ring */}
-            <circle cx="110" cy="110" r="98" fill="none" stroke="#d4a445" strokeWidth="1.5" />
-
-            {/* Curved top text */}
-            <text fill="#d4a445" fontSize="10" fontFamily="'Inter', sans-serif" fontWeight="600" letterSpacing="3">
-                <textPath href="#topArc" startOffset="10%">WHERE THE SILENCE ENDS</textPath>
-            </text>
-            {/* Curved bottom text */}
-            <text fill="#d4a445" fontSize="10" fontFamily="'Inter', sans-serif" fontWeight="600" letterSpacing="3">
-                <textPath href="#botArc" startOffset="12%">AND HEALING BEGINS</textPath>
-            </text>
-
-            {/* Centre flame */}
-            <path d="M110 68 C110 68 92 88 92 102 a18 18 0 0 0 36 0 C128 88 110 68 110 68z" fill="url(#flameGrad)" />
-            <path d="M110 82 C110 82 102 94 102 102 a8 8 0 0 0 16 0 C118 94 110 82 110 82z" fill="#faf6ee" opacity="0.3" />
-
-            {/* Microphone icon */}
-            <rect x="105" y="118" width="10" height="18" rx="5" fill="#d4a445" />
-            <path d="M100 130 Q100 142 110 142 Q120 142 120 130" fill="none" stroke="#d4a445" strokeWidth="1.5" />
-            <line x1="110" y1="142" x2="110" y2="148" stroke="#d4a445" strokeWidth="1.5" />
-            <line x1="105" y1="148" x2="115" y2="148" stroke="#d4a445" strokeWidth="1.5" />
-
-            {/* GRIEF TALK stacked text */}
-            <text x="110" y="166" textAnchor="middle" fill="#c8541e" fontSize="14" fontFamily="'Fraunces', Georgia, serif" fontWeight="700">GRIEF</text>
-            <text x="110" y="182" textAnchor="middle" fill="#c8541e" fontSize="14" fontFamily="'Fraunces', Georgia, serif" fontWeight="700">TALK</text>
-        </svg>
-    )
-}
+import logoImage from '@/assets/images/gtalk.jpeg'
 
 export function Hero() {
     const heroRef = useRef<HTMLElement>(null)
@@ -79,8 +30,7 @@ export function Hero() {
                 position: 'relative',
                 overflow: 'hidden',
                 minHeight: '100vh',
-                display: 'grid',
-                gridTemplateColumns: '1.1fr 0.9fr',
+                display: 'flex',
                 alignItems: 'center',
                 paddingTop: '7rem',
                 paddingBottom: '5rem',
@@ -101,8 +51,8 @@ export function Hero() {
                         inset: 0,
                         width: '100%',
                         height: '100%',
-                        objectFit: 'cover',
-                        objectPosition: 'center top',
+                        objectFit: 'contain',
+                        objectPosition: 'right bottom',
                     }}
                     loading="eager"
                 />
@@ -215,90 +165,7 @@ export function Hero() {
                 </div>
             </div>
 
-            {/* ── Right column — Podcast card ── */}
-            <div
-                style={{
-                    position: 'relative',
-                    zIndex: 10,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    gap: '1rem',
-                }}
-                className="hero-right"
-            >
-                {/* Top pill tag */}
-                <div
-                    style={{
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: '0.5rem',
-                        padding: '0.4rem 1rem',
-                        borderRadius: '999px',
-                        background: 'rgba(245,239,230,0.85)',
-                        border: '1px solid rgba(31,22,18,0.12)',
-                        backdropFilter: 'blur(8px)',
-                        fontFamily: "'Inter', system-ui, sans-serif",
-                        fontSize: '0.75rem',
-                        fontWeight: 500,
-                        color: 'var(--ink, #1f1612)',
-                        letterSpacing: '0.04em',
-                    }}
-                >
-                    <span
-                        className="pulse-dot"
-                        style={{
-                            width: 6,
-                            height: 6,
-                            borderRadius: '50%',
-                            background: 'var(--ember, #c8541e)',
-                            flexShrink: 0,
-                        }}
-                    />
-                    New episode weekly
-                </div>
-
-                {/* Podcast card */}
-                <div
-                    className="podcast-card"
-                    style={{
-                        width: 300,
-                        height: 300,
-                        borderRadius: 28,
-                        background: 'linear-gradient(135deg, #2a1e18 0%, #1f1612 60%, #3a2a22 100%)',
-                        boxShadow: '0 32px 80px rgba(31,22,18,0.45), 0 8px 20px rgba(200,84,30,0.15)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        flexShrink: 0,
-                    }}
-                >
-                    <PodcastSeal />
-                </div>
-
-                {/* Bottom pill tag */}
-                <div
-                    style={{
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: '0.4rem',
-                        padding: '0.4rem 1rem',
-                        borderRadius: '999px',
-                        background: 'rgba(245,239,230,0.85)',
-                        border: '1px solid rgba(31,22,18,0.12)',
-                        backdropFilter: 'blur(8px)',
-                        fontFamily: "'Inter', system-ui, sans-serif",
-                        fontSize: '0.75rem',
-                        fontWeight: 500,
-                        color: 'var(--ink-soft, #3a2a22)',
-                        letterSpacing: '0.04em',
-                    }}
-                >
-                    The Podcast · Available everywhere
-                </div>
-            </div>
-
-            {/* ── Scroll indicator ── */}
+            {/* ── Scroll indicator — logo replaces "Scroll" text ── */}
             <div
                 style={{
                     position: 'absolute',
@@ -308,24 +175,32 @@ export function Hero() {
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
-                    gap: '0.5rem',
+                    gap: '0.6rem',
                     zIndex: 10,
-                    animationDelay: '1s',
-                    opacity: 0.6,
+                    opacity: 0.75,
                 }}
                 className="scroll-indicator"
             >
-                <span
+                {/* Logo circle matching nav */}
+                <div
                     style={{
-                        fontFamily: "'Inter', system-ui, sans-serif",
-                        fontSize: '0.7rem',
-                        letterSpacing: '0.18em',
-                        textTransform: 'uppercase',
-                        color: 'var(--ink, #1f1612)',
+                        width: 42,
+                        height: 42,
+                        borderRadius: '50%',
+                        overflow: 'hidden',
+                        boxShadow: '0 2px 10px rgba(31,22,18,0.2), inset 0 1px 0 rgba(255,255,255,0.2)',
+                        border: '1.5px solid rgba(200,84,30,0.3)',
+                        flexShrink: 0,
                     }}
+                    className="scroll-logo-pulse"
                 >
-                    Scroll
-                </span>
+                    <img
+                        src={logoImage}
+                        alt=""
+                        aria-hidden="true"
+                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    />
+                </div>
                 <div
                     className="scroll-indicator-line"
                     style={{
@@ -336,22 +211,13 @@ export function Hero() {
                 />
             </div>
 
-            {/* Responsive stacking */}
+            {/* Responsive padding */}
             <style>{`
-                .hero-section {
-                    grid-template-columns: 1.1fr 0.9fr;
-                    padding-left: 2.5rem;
-                    padding-right: 2.5rem;
-                }
                 @media (max-width: 960px) {
                     .hero-section {
-                        grid-template-columns: 1fr !important;
                         padding-top: 6rem !important;
                         padding-left: 1.5rem !important;
                         padding-right: 1.5rem !important;
-                    }
-                    .hero-right {
-                        display: none !important;
                     }
                     .scroll-indicator {
                         display: none !important;
